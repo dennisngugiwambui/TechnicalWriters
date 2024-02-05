@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writer Login</title>
+    <link rel="icon" type="image/png" href="/Admin/img/writer.png">
+    <!-- Font Awesome CSS (Include the link to Font Awesome in your project) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #3498db, #8e44ad);
+            background: linear-gradient(135deg, #edebed, #edebed);
             font-family: 'Arial', sans-serif;
             margin: 0;
             display: flex;
@@ -14,6 +17,7 @@
             justify-content: center;
             height: 100vh;
         }
+
 
         .login-container {
             background-color: #fff;
@@ -64,7 +68,7 @@
         }
 
         .form-group input {
-            width: 100%;
+            width: calc(100% - 26px);
             padding: 12px;
             font-size: 16px;
             border: 1px solid #ddd;
@@ -72,6 +76,8 @@
             transition: 0.3s;
             background-color: #f9f9f9;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-left: 26px;
+            box-sizing: border-box;
         }
 
         .form-group input:focus {
@@ -99,24 +105,54 @@
         .login-btn:hover {
             background-color: #2980b9;
         }
+
+        .signup-link,
+        .forgot-password-link {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #777;
+        }
+
+        .signup-link a,
+        .forgot-password-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .error {
+            color: #ff0000; /* Red color for error messages */
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
     </style>
 </head>
 <body>
 
 <div class="login-container">
     <h2>Writer Login</h2>
-    <form class="login-form">
+    <form class="login-form" method="POST" action="{{ route('login') }}">
+        @csrf
         <div class="form-group">
-            <input type="text" id="username" name="username" required>
-            <label for="username">Username</label>
+            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+            <label for="username"><i class="fas fa-envelope"></i> Email</label>
+            @error('email')
+            <span class="error">{{ $message }}</span>
+            @enderror
         </div>
 
+
         <div class="form-group">
-            <input type="password" id="password" name="password" required>
-            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror">
+            <label for="password"><i class="fas fa-lock"></i> Password</label>
+            @error('password')
+            <span class="error">{{ $message }}</span>
+            @enderror
         </div>
 
         <button type="submit" class="login-btn">Login</button>
+
+        <p class="signup-link">Not a member? <a href="{{ route('register') }}">Sign up here</a></p>
+        <p class="forgot-password-link"><a href="{{ route('password.request') }}">Forgot password?</a></p>
     </form>
 </div>
 
