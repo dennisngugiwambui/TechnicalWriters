@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writer Login</title>
+    <title>Writer Registration</title>
     <link rel="icon" type="image/png" href="/Admin/img/writer.png">
     <!-- Font Awesome CSS (Include the link to Font Awesome in your project) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Your styles here */
         body {
             background: linear-gradient(135deg, #edebed, #edebed);
             font-family: 'Arial', sans-serif;
@@ -18,7 +19,7 @@
             height: 100vh;
         }
 
-        .login-container {
+        .registration-container {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -41,11 +42,11 @@
             }
         }
 
-        .login-container h2 {
+        .registration-container h2 {
             color: #333;
         }
 
-        .login-form {
+        .registration-form {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -90,7 +91,7 @@
             color: #3498db;
         }
 
-        .login-btn {
+        .register-btn {
             background-color: #3498db;
             color: #fff;
             padding: 12px;
@@ -101,22 +102,21 @@
             transition: 0.3s;
         }
 
-        .login-btn:hover {
+        .register-btn:hover {
             background-color: #2980b9;
         }
 
-        .signup-link,
-        .forgot-password-link {
+        .signup-link {
             font-size: 14px;
             margin-top: 10px;
             color: #777;
         }
 
-        .signup-link a,
-        .forgot-password-link a {
+        .signup-link a {
             color: #3498db;
             text-decoration: none;
         }
+
         .invalid-feedback {
             color: #ff0000; /* Red color for error messages */
             font-size: 14px;
@@ -126,43 +126,54 @@
     </style>
 </head>
 <body>
-<div class="login-container">
-    <h2>Writer Login</h2>
-    <form class="login-form">
-        <div class="form-group">
-            <input type="text" id="name"  class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-            <label for="name"><i class="fas fa-user-md"></i> Name</label>
 
+<div class="registration-container">
+    <h2>Writer Registration</h2>
+    <form class="registration-form" method="POST" action="{{ route('register') }}">
+        @csrf
+        <div class="form-group">
+            <input type="text" id="name" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+            <label for="name"><i class="fas fa-user"></i> Name</label>
             @error('name')
-            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+            <span class="invalid-feedback">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-            <input type="number" id="phone" name="phone" required>
+            <input type="number" id="phone" name="phone">
             <label for="phone"><i class="fas fa-phone"></i> Phone</label>
+            @error('phone')
+            <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="form-group">
-            <input type="text" id="username" name="username" required>
-            <label for="username"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="email" name="email" value="{{ old('email') }}">
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+            @error('email')
+            <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
         </div>
 
-
         <div class="form-group">
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" >
             <label for="password"><i class="fas fa-lock"></i> Password</label>
+            @error('password')
+            <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
         </div>
+
         <div class="form-group">
-            <input type="password" id="password" name="password" required>
-            <label for="password"><i class="fas fa-lock"></i> Re-Password</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" >
+            <label for="password_confirmation"><i class="fas fa-lock"></i> Confirm Password</label>
+            @error('password_confirmation')
+            <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
         </div>
 
-        <button type="submit" class="login-btn">Register</button>
+        <button type="submit" class="register-btn">Register</button>
 
-        <p class="signup-link">Not a member? <a href="{{ route('login') }}">Sign up here</a></p>
+        <p class="signup-link">Already a member? <a href="{{ route('login') }}">Login here</a></p>
     </form>
 </div>
 
