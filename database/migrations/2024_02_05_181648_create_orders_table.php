@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('assignmentType');
+            $table->string('orderId');
+            $table->string('taskSize');
+            $table->string('title');
+            $table->text('description');
+            $table->string('word_count');
+            $table->decimal('price', 8, 2);
+            $table->boolean('visible')->default(false);
+            $table->string('deadline');
+            $table->text('comments')->nullable();
+            $table->string('file');
+            $table->string('writer_id')->nullable();
             $table->timestamps();
         });
     }

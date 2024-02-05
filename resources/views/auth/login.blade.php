@@ -1,73 +1,124 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer Login</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 400px;
+            max-width: 100%;
+            padding: 20px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+        .login-container h2 {
+            color: #333;
+        }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .form-group {
+            position: relative;
+        }
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            background-color: #fff;
+            padding: 0 5px;
+            color: #777;
+            transition: 0.3s;
+        }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: 0.3s;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .form-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+        .form-group input:focus + label {
+            top: 5px;
+            font-size: 12px;
+            color: #3498db;
+        }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+        .login-btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+        .login-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="login-container">
+    <h2>Writer Login</h2>
+    <form class="login-form">
+        <div class="form-group">
+            <input type="text" id="username" name="username" required>
+            <label for="username">Username</label>
         </div>
-    </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="password" required>
+            <label for="password">Password</label>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+    </form>
 </div>
-@endsection
+
+</body>
+</html>
