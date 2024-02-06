@@ -87,13 +87,13 @@
                 </div>
                 <div class="col-sm-6 clearfix">
                     <div class="user-profile pull-right">
-                        <img class="avatar user-thumb" src="{{ asset('Admin/assets/images/author/avatar.png') }}"
+                        <img class="avatar user-thumb " src="{{ asset('Admin/assets/images/author/avatar.png') }}"
                              alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ auth()->user()->name }} <i
                                     class="fa fa-angle-down"></i></h4>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Message</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="#">Warnings</a>
+                            <a class="dropdown-item" href="#">Status</a>
                             <a class="dropdown-item" href="#">Log Out</a>
                         </div>
                     </div>
@@ -104,12 +104,7 @@
 
         @yield('content')
         <!-- footer area start-->
-        <footer>
-            <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="/">PIXEL SOLUTIONS</a>.</p>
-            </div>
-        </footer>
-        <!-- footer area end-->
+
 
         <!-- offset area end -->
         <!-- jquery latest version -->
