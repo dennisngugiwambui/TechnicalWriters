@@ -30,4 +30,24 @@ class HomeController extends Controller
         return view('Writers.Bids');
 
     }
+    public function Finished()
+    {
+        return view('Writers.Finished');
+
+    }
+
+    public function revision()
+    {
+        return view('Writers.Revision');
+    }
+
+    public function current()
+    {
+        return view('Writers.current');
+    }
+
+    public function Dispute()
+    {
+        return view('Writers.Dispute');
+    }
 }

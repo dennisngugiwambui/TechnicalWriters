@@ -35,9 +35,9 @@
                     </a>
                 </li>
                 <li><a href="/current"><i class="fa fa-user-md"></i> <span>Current</span></a></li>
-                <li><a href="/book-property"><i class="fa fa-bookmark"></i> <span>Revision</span></a></li>
-                <li><a href="/emails"><i class="fa fa-envelope"></i> <span>Dispute</span></a></li>
-                <li><a href="/sms"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
+                <li><a href="/revision"><i class="fa fa-bookmark"></i> <span>Revision</span></a></li>
+                <li><a href="/dispute"><i class="fa fa-envelope"></i> <span>Dispute</span></a></li>
+                <li><a href="/finished"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
 
                 <li>
                     <a href="/bids">
