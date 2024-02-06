@@ -135,13 +135,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Available Orders</h2>
-            <p class="orders-info">80%</p>
-        </div>
-        <div class="orders-filters">
-
-
-
+            <h2 class="orders-title">Orders on dispute status</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">

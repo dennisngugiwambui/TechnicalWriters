@@ -135,13 +135,58 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Available Orders</h2>
-            <p class="orders-info">80%</p>
+            <h2 class="orders-title">Writer Assigned orders (1)</h2>
         </div>
-        <div class="orders-filters">
+        <div class="orders-table">
+            <table class="orders-table-content">
+                <thead>
+                <tr>
+                    <th class="orders-table-header">ORDER ID</th>
+                    <th class="orders-table-header">TOPIC TITLE</th>
+                    <th class="orders-table-header">DISCIPLINE</th>
+                    <th class="orders-table-header">PAGES</th>
+                    <th class="orders-table-header">DEADLINE</th>
+                    <th class="orders-table-header">CPP</th>
+                    <th class="orders-table-header">COST</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="orders-table-data">
+                        <span class="orders-table-data-revision">Revision</span>
+                        <br>
+                        <span class="orders-table-data-order-id">Order#12345</span>
+                    </td>
+                    <td class="orders-table-data">Programming C</td>
+                    <td class="orders-table-data">Computer science</td>
+                    <td class="orders-table-data">-</td>
+                    <td class="orders-table-data">2023-11-21</td>
+                    <td class="orders-table-data">15</td>
+                    <td class="orders-table-data">$12.77</td>
+                </tr>
+                <tr>
+                    <td class="orders-table-data">
+                        <span class="orders-table-data-revision">Revision</span>
+                        <br>
+                        <span class="orders-table-data-order-id">Order#12345</span>
+                    </td>
+                    <td class="orders-table-data">Programming C</td>
+                    <td class="orders-table-data">Computer science</td>
+                    <td class="orders-table-data">-</td>
+                    <td class="orders-table-data">2023-11-21</td>
+                    <td class="orders-table-data">15</td>
+                    <td class="orders-table-data">$12.77</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
 
-
+    <!-- done and delivered orders -->
+    <section class="orders">
+        <div class="orders-header">
+            <h2 class="orders-title">Done, Delivered Orders (2)</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">

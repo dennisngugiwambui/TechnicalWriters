@@ -20,3 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/available', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/bids', [App\Http\Controllers\HomeController::class, 'Bids'])->name('bids');

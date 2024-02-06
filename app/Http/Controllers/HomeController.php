@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('Writers.index');
     }
+    public function Bids()
+    {
+        return view('Writers.Bids');
+
+    }
 }
