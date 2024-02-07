@@ -50,4 +50,9 @@ class HomeController extends Controller
     {
         return view('Writers.Dispute');
     }
+
+    public function order()
+    {
+        return view('Writers.order');
+    }
 }

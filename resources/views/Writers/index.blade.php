@@ -146,18 +146,18 @@
         <div class="orders-table">
             <table class="orders-table-content">
                 <thead>
-                <tr>
-                    <th class="orders-table-header">ORDER ID</th>
-                    <th class="orders-table-header">TOPIC TITLE</th>
-                    <th class="orders-table-header">DISCIPLINE</th>
-                    <th class="orders-table-header">PAGES</th>
-                    <th class="orders-table-header">DEADLINE</th>
-                    <th class="orders-table-header">CPP</th>
-                    <th class="orders-table-header">COST</th>
+                <tr >
+                        <th class="orders-table-header">ORDER ID</th>
+                        <th class="orders-table-header">TOPIC TITLE</th>
+                        <th class="orders-table-header">DISCIPLINE</th>
+                        <th class="orders-table-header">PAGES</th>
+                        <th class="orders-table-header">DEADLINE</th>
+                        <th class="orders-table-header">CPP</th>
+                        <th class="orders-table-header">COST</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr onclick="window.location.href='/available';" style="cursor: pointer;">
                     <td class="orders-table-data">
                         <span class="orders-table-data-revision">Revision</span>
                         <br>
@@ -170,7 +170,8 @@
                     <td class="orders-table-data">15</td>
                     <td class="orders-table-data">$12.77</td>
                 </tr>
-                <tr>
+
+                <tr onclick="window.location.href='/order';" style="cursor: pointer;">
                     <td class="orders-table-data">
                         <span class="orders-table-data-revision">Revision</span>
                         <br>
@@ -183,10 +184,13 @@
                     <td class="orders-table-data">15</td>
                     <td class="orders-table-data">$12.77</td>
                 </tr>
+
                 </tbody>
             </table>
         </div>
     </section>
+
+
 
 
 @endsection
