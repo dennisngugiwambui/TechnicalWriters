@@ -40,7 +40,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2><span>Order</span> #549829806 <span class="status">Canceled</span></h2>
+            <p><span>Order</span> #549829806 <span class="status">Canceled</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
         <div class="orders-filters">
