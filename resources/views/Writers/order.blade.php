@@ -176,33 +176,39 @@
             display: none; /* Initially hide the content */
         }
 
+        #all-files {
+            display: none; /* Initially hide the content */
+        }
+
+        /* Add this CSS to your existing styles */
+
         .file-info {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
         }
 
         .file-name {
-            flex-grow: 1;
             font-weight: bold;
             margin-right: 10px;
         }
 
         .file-details {
+            flex-grow: 1;
+        }
+
+        .file-metadata {
             flex-shrink: 0;
             text-align: right;
             color: #6c757d;
         }
-        .file-icon {
-            font-size: 24px;
-            margin-right: 10px;
-        }
 
-        .file-description {
-            font-size: 12px;
-            color: #6c757d;
-            margin: 0;
-        }
+
+
+
         /* Media query for mobile view */
         @media only screen and (max-width: 600px) {
             .orders-header {
@@ -232,6 +238,31 @@
 
             .buttone {
                 margin-top: 10px; /* Add some space between the button and the details on mobile */
+            }
+
+            .file-info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between; /* Adjust spacing between file name and details */
+                margin-bottom: 10px;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            }
+
+            .file-name {
+                font-weight: bold;
+                margin-right: 10px;
+                font-size: 16px; /* Reduce font size */
+            }
+
+            .file-details {
+                flex-grow: 1;
+                font-size: 10px;
+            }
+
+            .file-metadata {
+                display: none;
             }
         }
     </style>
@@ -285,7 +316,7 @@
                 <button class="buttone">Bid</button>
             </div>
 
-            <div style="background: #dac7c7; margin-top: 10px; padding: 10px; color: #1e0505;">
+            <div style="background: #dac7c7; margin-top: 10px; padding: 10px; color: #910707; ">
                 Press the button if you do not wish to work on this order anymore or you have placed this bid by mistake.
                 In case you remove your bid, you will be able to place a bid once again to let the Support Team know you are still willing to work on it.
             </div>
@@ -302,7 +333,7 @@
 
         <!-- Tab contents -->
         <div id="instructions" class="tab-content active-tab-content">
-           <div style="display: flex;">
+           <div style="display: flex; font-size: larger;">
                <!-- Content for Instructions tab goes here -->
                <div class="left_side card" style="font-size: 20px; line-height: 1.5;">
                    <p>Price: <strong>Ksh.8000</strong></p>
@@ -328,19 +359,41 @@
         <div id="all-files" class="tab-content">
             <h3>All Files</h3>
 
+
             <div class="file-info">
-                <div class="file-icon">📄</div>
                 <div class="file-details">
-                    <div class="file-name">559227134_IMG_0524_7823323980395078.jpeg</div>
-                    <p class="file-description">Instructions / Guidelines</p>
+                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                    <p>Instructions / Guidelines</p>
+                </div>
+                <div class="file-metadata">
                     <p>Customer</p>
                     <p>7 Feb, 01:23 PM</p>
-                    <p>821 KB</p>
+                </div>
+            </div>
+            <div class="file-info">
+                <div class="file-details">
+                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                    <p>Instructions / Guidelines</p>
+                </div>
+                <div class="file-metadata">
+                    <p>Customer</p>
+                    <p>7 Feb, 01:23 PM</p>
+                </div>
+            </div>
+            <div class="file-info">
+                <div class="file-details">
+                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                    <p>Instructions / Guidelines</p>
+                </div>
+                <div class="file-metadata">
+                    <p>Customer</p>
+                    <p>7 Feb, 01:23 PM</p>
                 </div>
             </div>
 
-            <!-- Add more file-info divs as needed -->
         </div>
+
+
 
         <div id="messages" class="tab-content">
             <!-- Content for Messages tab goes here -->
