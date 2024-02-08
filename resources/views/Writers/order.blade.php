@@ -205,7 +205,37 @@
             text-align: right;
             color: #6c757d;
         }
+        .message-container {
+            margin-top: 20px;
+        }
 
+        .message {
+            background-color: #f8f9fa;
+            padding: 15px;
+            display: flex;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .message-sender {
+            font-weight: bold;
+        }
+
+        .message-title {
+            margin-top: 5px;
+            color: #343a40;
+        }
+
+        .message-date {
+            margin-top: 5px;
+            color: #6c757d;
+        }
+
+        .materials {
+            display: flex;
+            font-family: 'Arial', sans-serif;
+        }
 
 
 
@@ -264,6 +294,10 @@
             .file-metadata {
                 display: none;
             }
+            .materials {
+                display: block;
+            }
+
         }
     </style>
 
@@ -309,6 +343,7 @@
             <p><span>Order</span> #549829806 <span class="status">Canceled</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
+
         <div class="orders-filters">
             <!-- Add your filters here -->
             <div class="bidding-container" style="background: #b1e6b1; margin: 4px 0; padding: 10px; border: 5px solid #be1f1f; text-align: center;">
@@ -325,7 +360,7 @@
         <div class="order-tabs">
             <ul>
                 <li><a href="#" class="tablinks active" onclick="openTab(event, 'instructions')">Instructions</a></li>
-                <li><a href="#" class="tablinks" onclick="openTab(event, 'all-files')">All files</a></li>
+                <li><a href="#" class="tablinks" onclick="openTab(event, 'all-files')">Files</a></li>
                 <li><a href="#" class="tablinks" onclick="openTab(event, 'messages')">Messages</a></li>
                 <li><a href="#" class="tablinks" onclick="openTab(event, 'financial')">Financial</a></li>
             </ul>
@@ -333,7 +368,7 @@
 
         <!-- Tab contents -->
         <div id="instructions" class="tab-content active-tab-content">
-           <div style="display: flex; font-size: larger;">
+           <div class="materials">
                <!-- Content for Instructions tab goes here -->
                <div class="left_side card" style="font-size: 20px; line-height: 1.5;">
                    <p>Price: <strong>Ksh.8000</strong></p>
@@ -399,6 +434,60 @@
             <!-- Content for Messages tab goes here -->
             <h3>Messages</h3>
             <p>Messages content goes here...</p>
+
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Support Dpt.>Me
+                    Order #556011480: New message
+                    31 Jan, 02:23 AM
+                </span>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body" style="white-space: pre-line;">
+                            Hey Team,
+
+                            We've noticed that chatting with customers isn't always smooth sailing, and it's causing a bit of a headache with revisions and delays.😓
+
+                            We really want to get to the bottom of this and make things better for everyone.
+
+                            So, we're diving into what's going on with communication between you guys and the customers. Our aim? To figure out where things are getting tangled up and how we can untangle them. We think that with a bit of teamwork, we can find ways to make our conversations clearer and order processing smoother.
+
+                            We’ve put together a questionnaire to gather your insights. It’s your chance to share what you’ve noticed, any tricky spots, and your genius ideas for making things better. We will accept responses till the 12th of February.
+
+                            Your feedback is super important. Thank you in advance for your contribution! 🤍
+
+                            Best regards,
+
+                            Nellie
+
+                            STEM Writers Manager
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                <span class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Me>Support Dpt.           Order #556011480: New message         #556011480   31 Jan, 02:22 AM
+                </span>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Your message content goes here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
         <div id="financial" class="tab-content">
             <!-- Content for Financial tab goes here -->
