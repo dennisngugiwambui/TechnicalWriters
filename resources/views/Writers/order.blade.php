@@ -172,8 +172,37 @@
             margin-bottom: 5px;
             color: #666;
         }
+        #all-files {
+            display: none; /* Initially hide the content */
+        }
 
+        .file-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
+        .file-name {
+            flex-grow: 1;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .file-details {
+            flex-shrink: 0;
+            text-align: right;
+            color: #6c757d;
+        }
+        .file-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .file-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin: 0;
+        }
         /* Media query for mobile view */
         @media only screen and (max-width: 600px) {
             .orders-header {
@@ -287,16 +316,32 @@
 
                <div class="right_side card">
                    <h3>Paper Instructions</h3>
+                  <p>Maize is a versatile crop that can grow in different varieties of soil, water, and climatic conditions. The crop has a wide range of tolerance to temperature conditions but grows well in warm regions where moisture is sufficient. The crop flourishes in regions with rainfall ranging from 1200mm to 2500mm but can adapt to regions receiving rainfall of up to 400 mm. The crop requires warm temperatures of between 15°C and 30 °C and thrives in a range of zones with altitudes ranging from 100 m to 2900 m ASL, depending on the variety.
+
+                      The crop is sensitive to moisture stress around tasseling time and during cob formation. Growth is favorable under a pH ranging from 5-8 with 5.5-7 being optimal because it is sensitive to salinity.
+                   </p>
                </div>
            </div>
         </div>
 
 
         <div id="all-files" class="tab-content">
-            <!-- Content for All files tab goes here -->
-            <h3>All files</h3>
-            <p>All files content goes here...</p>
+            <h3>All Files</h3>
+
+            <div class="file-info">
+                <div class="file-icon">📄</div>
+                <div class="file-details">
+                    <div class="file-name">559227134_IMG_0524_7823323980395078.jpeg</div>
+                    <p class="file-description">Instructions / Guidelines</p>
+                    <p>Customer</p>
+                    <p>7 Feb, 01:23 PM</p>
+                    <p>821 KB</p>
+                </div>
+            </div>
+
+            <!-- Add more file-info divs as needed -->
         </div>
+
         <div id="messages" class="tab-content">
             <!-- Content for Messages tab goes here -->
             <h3>Messages</h3>
