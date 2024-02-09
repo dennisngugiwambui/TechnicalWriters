@@ -26,4 +26,9 @@ Route::get('/revision', [App\Http\Controllers\HomeController::class, 'revision']
 Route::get('/dispute', [App\Http\Controllers\HomeController::class, 'Dispute'])->name('dispute');
 Route::get('/current', [App\Http\Controllers\HomeController::class, 'current'])->name('current');
 Route::get('/finished', [App\Http\Controllers\HomeController::class, 'Finished'])->name('finished');
-Route::get('/order', [App\Http\Controllers\HomeController::class, 'order'])->name('order');
+Route::get('/order/{id}', [App\Http\Controllers\HomeController::class, 'order'])->name('order');
+Route::get('/new_order',[App\Http\Controllers\HomeController::class, 'new_order']);
+Route::get('/new_files',[App\Http\Controllers\HomeController::class, 'new_files'])->name('new_files');
+
+//post new order
+Route::post('/orders', [App\Http\Controllers\DataController::class, 'orders'])->name('orders');

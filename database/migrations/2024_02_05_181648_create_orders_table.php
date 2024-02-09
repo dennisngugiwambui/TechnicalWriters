@@ -12,19 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(1000);;
             $table->string('assignmentType');
-            $table->string('orderId');
-            $table->string('taskSize');
-            $table->string('title');
-            $table->text('description');
-            $table->string('word_count');
-            $table->decimal('price', 8, 2);
-            $table->boolean('visible')->default(false);
+            $table->string('typeOfService');
+            $table->string('topicTitle');
+            $table->string('discipline');
+            $table->text('pages');
             $table->string('deadline');
+            $table->string('cpp');
+            $table->decimal('price', 8, 2);
             $table->text('comments')->nullable();
-            $table->string('file');
-            $table->string('writer_id')->nullable();
+            $table->string('files')->default('N/A');
+            $table->boolean('visible')->default(false);
+            $table->string('employee_id');
+            $table->string('employee_name');
+            $table->string('employee_phone');
+            $table->string('writer_id');
+            $table->string('writer_name');
+            $table->string('writer_phone');
+
             $table->timestamps();
         });
     }

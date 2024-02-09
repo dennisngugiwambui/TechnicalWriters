@@ -2,6 +2,10 @@
 
 @section('content')
 
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
     <style>
         .orders {
             background-color: #f8f9fa;
@@ -237,6 +241,51 @@
             font-family: 'Arial', sans-serif;
         }
 
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-upload input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .upload-btn-wrapper {
+            border: 2px solid gray;
+            color: gray;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .upload-btn-wrapper:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .file-name {
+            padding-left: 10px;
+        }
+
+
 
 
         /* Media query for mobile view */
@@ -395,37 +444,277 @@
             <h3>All Files</h3>
 
 
-            <div class="file-info">
-                <div class="file-details">
-                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
-                    <p>Instructions / Guidelines</p>
+            <div class="file-part">
+                <div class="file-info">
+                    <div class="file-details">
+                        <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                        <p>Instructions / Guidelines</p>
+                    </div>
+                    <div class="file-metadata">
+                        <p>Customer</p>
+                        <p>7 Feb, 01:23 PM</p>
+                    </div>
                 </div>
-                <div class="file-metadata">
-                    <p>Customer</p>
-                    <p>7 Feb, 01:23 PM</p>
+                <div class="file-info">
+                    <div class="file-details">
+                        <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                        <p>Instructions / Guidelines</p>
+                    </div>
+                    <div class="file-metadata">
+                        <p>Customer</p>
+                        <p>7 Feb, 01:23 PM</p>
+                    </div>
                 </div>
-            </div>
-            <div class="file-info">
-                <div class="file-details">
-                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
-                    <p>Instructions / Guidelines</p>
+                <div class="file-info">
+                    <div class="file-details">
+                        <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
+                        <p>Instructions / Guidelines</p>
+                    </div>
+                    <div class="file-metadata">
+                        <p>Customer</p>
+                        <p>7 Feb, 01:23 PM</p>
+                    </div>
                 </div>
-                <div class="file-metadata">
-                    <p>Customer</p>
-                    <p>7 Feb, 01:23 PM</p>
-                </div>
-            </div>
-            <div class="file-info">
-                <div class="file-details">
-                    <div class="file-name">📄 559227134_IMG_0524_7823323980395078.jpeg</div>
-                    <p>Instructions / Guidelines</p>
-                </div>
-                <div class="file-metadata">
-                    <p>Customer</p>
-                    <p>7 Feb, 01:23 PM</p>
-                </div>
-            </div>
 
+                <!-- Styles for Modals -->
+                <style>
+                    .modal-content {
+                        background-color: #f8f9fa;
+                    }
+
+                    .modal-header {
+                        background-color: #007bff;
+                        color: white;
+                        border-bottom: 2px solid #0056b3;
+                    }
+
+                    .modal-footer {
+                        background-color: #f8f9fa;
+                        border-top: 2px solid #0056b3;
+                    }
+
+                    .btn-primary {
+                        background-color: #007bff;
+                        border-color: #007bff;
+                    }
+
+                    .btn-primary:hover {
+                        background-color: #0056b3;
+                        border-color: #0056b3;
+                    }
+
+                    .file-list {
+                        list-style-type: none;
+                        padding: 0;
+                    }
+
+                    .uploaded-file {
+                        background-color: #d4edda;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        border-radius: 8px;
+                    }
+                </style>
+
+
+                <!-- Styles for Modals -->
+                <style>
+                    .modal-content {
+                        background-color: #f8f9fa;
+                    }
+
+                    .modal-header {
+                        background-color: #cacdd0;
+                        color: #2c0505;
+                        border-bottom: 2px solid #05080a;
+                    }
+
+                    .modal-footer {
+                        background-color: #f8f9fa;
+                        border-top: 2px solid #94969a;
+                    }
+
+                    .btn-primary {
+                        background-color: #d38c9a;
+                        border-color: #151718;
+                    }
+
+                    .btn-primary:hover {
+                        background-color: #d38c9a;
+                        border-color: #03111f;
+                    }
+
+                    .file-list {
+                        list-style-type: none;
+                        padding: 0;
+                    }
+
+                    .uploaded-file {
+                        background-color: #d4edda;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        border-radius: 8px;
+                    }
+
+                    .form-select {
+                        width: 100%;
+                    }
+
+                    .file-type-label {
+                        display: block;
+                        margin-top: 10px;
+                    }
+                </style>
+
+                <!-- First Modal -->
+                <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Upload File</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div style="display: flex;">
+                                        <div class="mb-3">
+                                            <label for="fileInput" class="form-label">Choose File:</label>
+                                            <input type="file" class="form-control" id="fileInput" name="fileInput">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="fileType" class="form-label">File Type:</label>
+                                            <select class="form-select apartment" id="fileType" name="fileType" required>
+                                                <option value="completed">Completed</option>
+                                                <option value="preview">Preview</option>
+                                                <option value="correction">File with Correction</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Display uploaded files -->
+                                <ul class="file-list">
+                                    <!-- List of uploaded files will be displayed here -->
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="buttone" id="uploadFileBtn">Upload File</button>
+                                <button type="button" class="buttone" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Modal -->
+                <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Feedback</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Select Option:</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="properGrammar" value="properGrammar">
+                                            <label class="form-check-label" for="properGrammar">
+                                                Proper Grammar
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="noAI" value="noAI">
+                                            <label class="form-check-label" for="noAI">
+                                                No AI
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="followInstructions" value="followInstructions">
+                                            <label class="form-check-label" for="followInstructions">
+                                                You have followed all the instructions
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to Upload</button>
+                                <button type="submit" class="buttone">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>
+                <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>
+
+                <script>
+                    $(document).ready(function() {
+                        // Initialize Select2 for the fileType dropdown
+                        $('#fileType').select2({
+                            theme: 'bootstrap4', // You can use a different theme if needed
+                            placeholder: 'Select File Type',
+                            allowClear: true
+                        });
+                    });
+
+
+                    document.getElementById('uploadFileBtn').addEventListener('click', function() {
+                        // Get the uploaded file
+                        var uploadedFile = document.getElementById('fileInput').files[0];
+                        var fileType = document.getElementById('fileType').value;
+
+                        if (uploadedFile) {
+                            // Create a new list item to display the uploaded file with its type
+                            var listItem = document.createElement('li');
+                            listItem.className = 'uploaded-file';
+                            listItem.textContent = '📄 ' + uploadedFile.name + ' - Type: ' + fileType;
+
+                            // Append the new list item to the file list
+                            var fileList = document.querySelector('.file-list');
+                            fileList.insertBefore(listItem, fileList.firstChild);
+
+                            // Clear the file input for the next upload
+                            document.getElementById('fileInput').value = '';
+
+                            // Reset error message
+                            document.getElementById('errorMessage').textContent = '';
+                        }
+                    });
+
+                    document.getElementById('submitFeedbackBtn').addEventListener('click', function() {
+                        // Check if at least 2 files are uploaded
+                        var fileList = document.querySelector('.file-list');
+                        if (fileList.childElementCount < 2) {
+                            // Display error message
+                            document.getElementById('errorMessage').textContent = 'Please ensure to upload a preview and the submission file.';
+                        } else {
+                            // Proceed with submission logic
+                            // Add your submission logic here
+                        }
+
+                        // Loop through uploaded files and display them
+                        for (var i = 0; i < uploadedFiles.length; i++) {
+                            var uploadedFile = uploadedFiles[i];
+
+                            // Create a new list item to display the uploaded file with its type
+                            var listItem = document.createElement('li');
+                            listItem.className = 'uploaded-file';
+                            listItem.textContent = '📄 ' + uploadedFile.name + ' - Types: ' + selectedOptions.join(', ');
+
+                            // Append the new list item to the file list
+                            var fileList = document.querySelector('.file-list');
+                            fileList.insertBefore(listItem, fileList.firstChild);
+
+                            // Clear the file input for the next upload
+                            document.getElementById('fileInput').value = '';
+                        }
+                    });
+                </script>
+
+            </div>
         </div>
 
 
@@ -433,16 +722,17 @@
         <div id="messages" class="tab-content">
             <!-- Content for Messages tab goes here -->
             <h3>Messages</h3>
-            <p>Messages content goes here...</p>
 
             <div id="accordion">
                 <div class="card">
                     <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
                 <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Support Dpt.>Me
+                   <p>
+                        Support Dpt.>Me
                     Order #556011480: New message
                     31 Jan, 02:23 AM
+                   </p>
                 </span>
                         </h5>
                     </div>
@@ -490,10 +780,55 @@
 
         </div>
         <div id="financial" class="tab-content">
-            <!-- Content for Financial tab goes here -->
-            <h3>Financial</h3>
-            <p>Financial content goes here...</p>
+            <h3>Financial Overview</h3>
+
+            <!-- Table with card-like appearance -->
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Transaction Type</th>
+                            <th>Comments</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Sample data row (replace with actual data) -->
+                        <tr>
+                            <td>7th Feb 2024</td>
+                            <td>Order Approved</td>
+                            <td>Computer Science</td>
+                            <td>Ksh.4000</td>
+                        </tr>
+
+                        <!-- Add more rows with financial data as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </section>
+
+    <script>
+        document.querySelector('input[type=file]').addEventListener('change', function (e) {
+            var fileName = e.target.files[0].name;
+            document.querySelector('.file-name').textContent = fileName;
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script type="text/javascript">
+
+        $("#apartment").select2({
+            placeholder: "Select a Name",
+            allowClear: true
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 @endsection
