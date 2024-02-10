@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('message');
             $table->string('visible')->default('yes');
             $table->string('read_status')->default('no');
+            $table->string('permission')->default('');
             $table->timestamps();
         });
     }

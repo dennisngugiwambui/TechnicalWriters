@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('employee_name');
             $table->string('employee_phone');
             $table->string('files');
+            $table->string('permission')->default('visible');
             $table->timestamps();
         });
     }

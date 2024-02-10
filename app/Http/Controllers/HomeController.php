@@ -90,7 +90,7 @@ class HomeController extends Controller
         $writer= auth()->user();
         $available=Order::count();
         $bidCount = Bid::where('writer_id', $writer->id)->count();
-        $myorder= MyOrder::where('writer_id', $writer->id)->get();
+        $myorder= MyOrder::where('writer_id', $writer->id)->where('status', 'current')->get();
         return view('Writers.current', compact('bidCount', 'available', 'myorder'));
     }
 
