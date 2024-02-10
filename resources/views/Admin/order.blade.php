@@ -1,4 +1,4 @@
-@extends('Writers.app')
+@extends('Admin.app')
 
 @section('content')
 
@@ -389,21 +389,97 @@
 
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #549829806 <span class="status">Canceled</span></p>
+            <p><span>Order</span> #549829806 <span class="status">Available</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
 
         <div class="orders-filters">
-            <!-- Add your filters here -->
-            <div class="bidding-container" style="background: #b1e6b1; margin: 4px 0; padding: 10px; border: 5px solid #be1f1f; text-align: center;">
-                <p>The bid you have placed equals to $15 on 2024.02.08 - 01:12.</p>
-                <button class="buttone">Bid</button>
+
+            <!-- control buttons -->
+            <div class="control-buttons">
+                <button class=" buttone" data-bs-toggle="modal" data-bs-target="#completeOrderModal">Complete Order</button>
+                <button class="buttone" data-bs-toggle="modal" data-bs-target="#reviseOrderModal">Revise Order</button>
+                <button class="buttone" data-bs-toggle="modal" data-bs-target="#refundOrderModal">Refund Order</button>
+            </div>
+            <!-- Complete order model -->
+
+            <div class="modal fade" id="completeOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Order</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                @csrf
+                                <p>Are you sure you want to complete this order?</p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            <div style="background: #dac7c7; margin-top: 10px; padding: 10px; color: #910707; ">
-                Press the button if you do not wish to work on this order anymore or you have placed this bid by mistake.
-                In case you remove your bid, you will be able to place a bid once again to let the Support Team know you are still willing to work on it.
+
+            <!-- revise order model -->
+
+            <div class="modal fade" id="reviseOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Order</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                @csrf
+                                <p>Are you sure you want place this order to Revision?</p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
+
+            <!--refund order model -->
+
+
+            <div class="modal fade" id="refundOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Order</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                @csrf
+                                <p>Are you sure you want to apply a refund on this order?</p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
         </div>
 
         <div class="order-tabs">
@@ -723,58 +799,32 @@
             <!-- Content for Messages tab goes here -->
             <h3>Messages</h3>
 
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                   <p>
-                        Support Dpt.>Me
-                    Order #556011480: New message
-                    31 Jan, 02:23 AM
-                   </p>
-                </span>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body" style="white-space: pre-line;">
-                            Hey Team,
-
-                            We've noticed that chatting with customers isn't always smooth sailing, and it's causing a bit of a headache with revisions and delays.😓
-
-                            We really want to get to the bottom of this and make things better for everyone.
-
-                            So, we're diving into what's going on with communication between you guys and the customers. Our aim? To figure out where things are getting tangled up and how we can untangle them. We think that with a bit of teamwork, we can find ways to make our conversations clearer and order processing smoother.
-
-                            We’ve put together a questionnaire to gather your insights. It’s your chance to share what you’ve noticed, any tricky spots, and your genius ideas for making things better. We will accept responses till the 12th of February.
-
-                            Your feedback is super important. Thank you in advance for your contribution! 🤍
-
-                            Best regards,
-
-                            Nellie
-
-                            STEM Writers Manager
+            @foreach($messages as $message)
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="heading{{$message->id}}">
+                            <h5 class="mb-0">
+                    <span class="collapsed" data-toggle="collapse" data-target="#collapse{{$message->id}}" aria-expanded="false" aria-controls="collapse{{$message->id}}">
+                        <p>
+                            @if(Auth::id() == $message->from)
+                                Me > {{$message->to}}
+                            @elseif(Auth::id() == $message->to)
+                                {{$message->from}} > Me
+                            @endif
+                            Order #{{$message->orderId}}: {{$message->title}}
+                            {{$message->date}}
+                        </p>
+                    </span>
+                            </h5>
+                        </div>
+                        <div id="collapse{{$message->id}}" class="collapse" aria-labelledby="heading{{$message->id}}" data-parent="#accordion">
+                            <div class="card-body" style="white-space: pre-line;">
+                                {{$message->message}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h5 class="mb-0">
-                <span class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Me>Support Dpt.           Order #556011480: New message         #556011480   31 Jan, 02:22 AM
-                </span>
-                        </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- Your message content goes here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
 
 

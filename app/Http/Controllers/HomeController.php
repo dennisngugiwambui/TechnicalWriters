@@ -35,8 +35,8 @@ class HomeController extends Controller
             $usertype = Auth::user()->usertype;
 
             if ($usertype === 'writer') {
-                $order=Available::all();
-                $available= Order::count();
+                $order=Available::where('status', 'visible')->get();
+                $available= Available::where('status', 'visible')->count();
                 $bidCount=Bid::count();
                 $writer=auth()->user();
                 $current = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->count();
@@ -44,8 +44,9 @@ class HomeController extends Controller
                 return view('Writers.index', compact('order', 'available', 'bidCount', 'current'));
             } else if($usertype === 'admin') {
                 $order=Available::all();
-                $available= Available::count();
-                $current = MyOrder::where('status', 'current')->count();
+                $available= Available::where('status', 'visible')->count();
+                $current = Order::where('status', 'visible')->count();
+
                 $myrevision = MyOrder::where('status', 'revision')->count();
 
                 return view('Admin.available', compact('available', 'order', 'current', 'myrevision'));
@@ -65,7 +66,7 @@ class HomeController extends Controller
             $usertype = Auth::user()->usertype;
 
             if ($usertype === 'writer') {
-                $available=Order::count();
+                $available= Available::where('status', 'visible')->count();
                 $bidCount=Bid::count();
                 $bidder=auth()->user();
                 if (!$bidder || $bidder->usertype !== 'writer') {
@@ -79,9 +80,9 @@ class HomeController extends Controller
                 return view('Writers.Bids', compact('bidCount', 'bids', 'available', 'current'));
             } else if ($usertype === 'admin') {
                 $order = Order::findOrFail($request->id);
-                $available = Order::count();
+                $available= Available::where('status', 'visible')->count();
                 $myrevision = MyOrder::where('status', 'revision')->count();
-                $current = MyOrder::where('status', 'current')->count();
+                $current = Order::where('status', 'visible')->count();
                 return view('Admin.order', compact('available', 'order', 'current', 'myrevision'));
             } else if ($usertype === 'pending') {
                 return view('pending');
@@ -104,7 +105,7 @@ class HomeController extends Controller
 
             if ($usertype === 'writer') {
                 $bidder=auth()->user();
-                $available=Order::count();
+                $available= Available::where('status', 'visible')->count();
                 $current = MyOrder::where('writer_id', $bidder->id)->where('status', 'current')->count();
                 $myrevision = MyOrder::where('writer_id', $bidder->id)->where('status', 'revision')->count();
                 $revision = MyOrder::where('writer_id', $bidder->id)->where('status', 'revision')->get();
@@ -112,8 +113,8 @@ class HomeController extends Controller
                 return view('Writers.Revision', compact('current', 'available', 'bidCount', 'revision', 'myrevision'));
             } else if ($usertype === 'admin') {
                 $bidder=auth()->user();
-                $available=Order::count();
-                $current = MyOrder::where('writer_id', $bidder->id)->where('status', 'current')->count();
+                $available= Available::where('status', 'visible')->count();
+                $current = Order::where('status', 'visible')->count();
                 $bidCount = Bid::where('writer_id', $bidder->id)->count();
                 $revision=MyOrder::where('status', 'revision')->get();
                 $myrevision = MyOrder::where('status', 'revision')->count();
@@ -138,7 +139,7 @@ class HomeController extends Controller
 
             if ($usertype === 'writer') {
                 $writer= auth()->user();
-                $available=Order::count();
+                $available= Available::where('status', 'visible')->count();
                 $bidCount = Bid::where('writer_id', $writer->id)->count();
                 $myorder= MyOrder::where('writer_id', $writer->id)->get();
                 $writer=auth()->user();
@@ -147,12 +148,12 @@ class HomeController extends Controller
                 return view('Writers.current', compact('bidCount', 'available', 'myorder', 'current'));
             } else if ($usertype === 'admin') {
                 $writer= auth()->user();
-                $available=Available::count();
+                $available= Available::where('status', 'visible')->count();
                 $order=Order::where('status', 'visible')->get();
                 $bidCount = Bid::where('writer_id', $writer->id)->count();
                 $myorder= MyOrder::where('writer_id', $writer->id)->get();
                 $writer=auth()->user();
-                $current = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->count();
+                $current = Order::where('status', 'visible')->count();
                 $onprogress=MyOrder::where('status', 'current')->get();
                 $myrevision = MyOrder::where('status', 'revision')->count();
                 return view('Admin.current', compact('bidCount', 'available', 'myorder', 'current', 'order', 'onprogress', 'myrevision'));
@@ -173,7 +174,7 @@ class HomeController extends Controller
     {
         $bidder=auth()->user();
         $myrevision = MyOrder::where('status', 'revision')->count();
-        $current = MyOrder::where('writer_id', $bidder->id)->where('status', 'current')->count();
+        $current = Order::where('status', 'visible')->count();
         return view('Writers.Dispute', compact('current', 'myrevision'));
     }
 
@@ -188,7 +189,7 @@ class HomeController extends Controller
                     ->find($request->OrderId);
 
                 if ($order) {
-                    $available = Available::count();
+                    $available= Available::where('status', 'visible')->count();
                     $current = MyOrder::where('status', 'current')->count();
                     $bidCount = Bid::count();
                     $bidder = auth()->user();
@@ -216,12 +217,13 @@ class HomeController extends Controller
                     ->find($request->OrderId);
 
                 if ($order) {
-                    $available = Available::count();
-                    $current = MyOrder::where('status', 'current')->count();
+                    $available= Available::where('status', 'visible')->count();
+                    $current = Order::where('status', 'visible')->count();
                     $bidCount = Bid::count();
                     $myrevision = MyOrder::where('status', 'revision')->count();
+                    $messages = Message::where('orderId', $request->OrderId)->get();
 
-                    return view('Admin.order', compact('order', 'available', 'current', 'bidCount', 'myrevision'));
+                    return view('Admin.order', compact('order', 'available', 'current', 'bidCount', 'myrevision', 'messages'));
                 } else {
                     // Handle the case when the order is not found
                     // You might want to redirect or display an error message
@@ -246,11 +248,11 @@ class HomeController extends Controller
             $usertype = Auth::user()->usertype;
 
             if ($usertype != 'admin') {
-                $available= Order::count();
+                $available= Available::where('status', 'visible')->count();
                 return view('Writers.prohibited');
             } else {
-                $available= Available::count();
-                $current = MyOrder::where('status', 'current')->count();
+                $available= Available::where('status', 'visible')->count();
+                $current = Order::where('status', 'visible')->count();
                 $myrevision = MyOrder::where('status', 'revision')->count();
                 return view('Admin.New_order', compact('available', 'current', 'myrevision'));
             }
@@ -263,8 +265,8 @@ class HomeController extends Controller
     public function order_details(Request $request)
     {
         $order=Available::find($request->OrderId);
-        $available= Available::count();
-        $current = MyOrder::where('status', 'current')->count();
+        $available= Available::where('status', 'visible')->count();
+        $current = Order::where('status', 'visible')->count();
         $bidCount=Bid::count();
         return view('Admin.order', compact('order', 'available', 'current', 'bidCount'));
 
@@ -278,8 +280,8 @@ class HomeController extends Controller
             if ($usertype != 'admin') {
                 return view('Writers.new_files');
             } else {
-                $current = MyOrder::where('status', 'current')->count();
-                $available=Order::count();
+                $current = Order::where('status', 'visible')->count();
+                $available= Available::where('status', 'visible')->count();
                 $order=Order::find($request->id);
                 $myrevision = MyOrder::where('status', 'revision')->count();
                 return view('Admin.file_upload', compact('order', 'available', 'current', 'myrevision'));
@@ -293,8 +295,8 @@ class HomeController extends Controller
     public function users()
     {
         $users=User::all();
-        $current = MyOrder::where('status', 'current')->count();
-        $available=Order::count();
+        $current = Order::where('status', 'visible')->count();
+        $available= Available::where('status', 'visible')->count();
         //$order=Order::find($request->id);
         $myrevision = MyOrder::where('status', 'revision')->count();
         return view('Admin.change_users', compact('users', 'available', 'current', 'myrevision'));

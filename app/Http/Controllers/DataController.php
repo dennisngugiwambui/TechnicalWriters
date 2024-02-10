@@ -172,6 +172,9 @@ class DataController extends Controller
         // Save the bid
         $bid->save();
 
+        $order->status='hidden';
+        $order->update();
+
         Toastr::success('bid placed successfully', 'success');
 
         // Redirect to a specific page after a successful bid
@@ -256,7 +259,7 @@ class DataController extends Controller
     public function Messages(Request $request)
     {
         try {
-
+            $order=Order::find($request->id);
             // Capture sender information
             $senderId = Auth::id();
             $senderName = Auth::user()->name;
@@ -264,18 +267,16 @@ class DataController extends Controller
             $senderPhone = Auth::user()->phone;
             $senderEmail= Auth::user()->email;
 
-            // Get recipient, order ID, and message from the request
-            $recipient = $request->input('recipient');
-            $orderId = $request->input('orderId');
-            $messageContent = $request->input('message');
+
 
             // Get recipient, order ID, and message from the request
             $recipient = $request->recipient;
-            $orderId = $request->input('orderId');
+            $orderId = $order->id;
             $messageContent = $request->input('message');
 
             // Create a new Message instance
             $message = new Message([
+                'OrderId'=>$orderId,
                 'from' => $senderName,
                 'from_phone' => $senderPhone,
                 'from_email' => $senderEmail,
@@ -283,12 +284,14 @@ class DataController extends Controller
                 'to_email' => 'N/A',
                 'to_phone' => 'N/A',
                 'title' => 'New Message',
-                'date' => now(),
+                'date' => now()->format('jS F Y h:ia'),
                 'message' => $messageContent,
             ]);
 
             // Save the message
             $message->save();
+
+           // dd($message);
 
             // Optionally, you can return a response or redirect as needed
             // return response()->json($message);
@@ -296,7 +299,7 @@ class DataController extends Controller
             return redirect()->back()->with('success', 'message inserted successfully');
         }catch (\Exception $e) {
 
-            Alert::success('success', $e->getMessage());
+            Alert::success('success', $e->getMessage())->persistent();
             //dd($e->getMessage());
 
             return redirect()->back()->with('error', 'Failed to process the order');

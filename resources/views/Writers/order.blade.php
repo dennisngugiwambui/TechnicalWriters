@@ -474,7 +474,7 @@
 
                    <p>Task Undefined</p>
                    <p>Type of Service:  {{$order->typeOfService}}</p>
-                   <p>Discipline: {{$order->discpline}}</p>
+                   <p>Discipline: {{$order->discipline}}</p>
                    <p>CPP: {{$order->cpp}}</p>
                </div>
 
@@ -783,7 +783,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="{{route('Messages')}}">
+                                <form method="post" action="{{route('Messages', ['id'=>$order->id])}}">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="recipient" class="form-label">Recipient</label>
