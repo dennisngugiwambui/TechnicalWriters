@@ -141,7 +141,7 @@
             <table class="orders-table-content">
                 <thead>
                 <tr>
-                    <th class="orders-table-header">ORDER ID</th>
+                    <th class="orders-table-header">ORDERv ID</th>
                     <th class="orders-table-header">TOPIC TITLE</th>
                     <th class="orders-table-header">DISCIPLINE</th>
                     <th class="orders-table-header">PAGES</th>
@@ -151,19 +151,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
+                @foreach($bids as $order)
+                    <tr>
+                        <td class="orders-table-data">
+                            <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
+                            <br>
+                            <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
+                        </td>
+                        <td class="orders-table-data">{{$order->topicTitle}}</td>
+                        <td class="orders-table-data">{{$order->discipline}}</td>
+                        <td class="orders-table-data">-</td>
+                        <td class="orders-table-data">{{$order->deadline}}</td>
+                        <td class="orders-table-data">{{$order->cpp}}</td>
+                        <td class="orders-table-data">
+                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$order->id}}';"></i>
+                            <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" onclick="deleteOrder('Order#12346')"></i>
+                        </td>
+
+                    </tr>
+                @endforeach
                 <tr>
                     <td class="orders-table-data">
                         <span class="orders-table-data-revision">Revision</span>

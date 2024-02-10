@@ -387,32 +387,17 @@
     </script>
 
 
-
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #{{$order->id}}</p>
+            <p><span>Order</span> #549829806 <span class="status">Canceled</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
 
         <div class="orders-filters">
             <!-- Add your filters here -->
             <div class="bidding-container" style="background: #b1e6b1; margin: 4px 0; padding: 10px; border: 5px solid #be1f1f; text-align: center;">
-                <p>The bid you have placed equals to Ksh.{{$order->price}} on 2024.02.08 - 01:12.</p>
-                @if($existingBid)
-                    <!-- Example: Form in Blade View -->
-                    <form action="{{ route('remove_bid', ['id' => $bid->id]) }}" method="post">
-                        @csrf
-
-                        <button type="submit" class="buttone">Remove Bid</button>
-                    </form>
-
-                @else
-                    <form action="{{ route('place_bid', ['id' => $order->id]) }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <!-- Form fields here -->
-                        <button type="submit" class="buttone">Bid</button>
-                    </form>
-                @endif
+                <p>The bid you have placed equals to $15 on 2024.02.08 - 01:12.</p>
+                <button class="buttone">Bid</button>
             </div>
 
             <div style="background: #dac7c7; margin-top: 10px; padding: 10px; color: #910707; ">
@@ -432,60 +417,26 @@
 
         <!-- Tab contents -->
         <div id="instructions" class="tab-content active-tab-content">
-           <div class="materials">
-               <!-- Content for Instructions tab goes here -->
-               <div class="left_side card" style="font-size: 20px; line-height: 1.5;">
-                   <p>Price: <strong>Ksh. {{$order->price}}</strong></p>
-                   <p>Deadline <strong id="deadline" style="color: red;">2024-02-10T08:54</strong></p>
-                   <p id="timeRemaining"></p>
-
-                   <script>
-                       // Get the deadline timestamp from the HTML element
-                       const deadline = new Date(document.getElementById('deadline').innerText).getTime();
-
-                       // Update the countdown every second
-                       const countdownInterval = setInterval(updateCountdown, 1000);
-
-                       // Function to calculate and update the countdown
-                       function updateCountdown() {
-                           // Get the current time
-                           const currentTime = new Date().getTime();
-
-                           // Calculate the time remaining in milliseconds
-                           const timeRemaining = deadline - currentTime;
-
-                           // Check if the deadline has passed
-                           if (timeRemaining <= 0) {
-                               clearInterval(countdownInterval); // Stop the countdown if deadline has passed
-                               document.getElementById('timeRemaining').innerText = 'Deadline has passed';
-                           } else {
-                               // Convert milliseconds to hours and minutes
-                               const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
-                               const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-
-                               // Display the time remaining
-                               document.getElementById('timeRemaining').innerText = `${hours} hrs ${minutes} mins`;
-                           }
-                       }
-
-                       // Initial call to update countdown when the page loads
-                       updateCountdown();
-                   </script>
-
-                   <p>Task Undefined</p>
-                   <p>Type of Service:  {{$order->typeOfService}}</p>
-                   <p>Discipline: {{$order->discpline}}</p>
-                   <p>CPP: {{$order->cpp}}</p>
-               </div>
+            <div class="materials">
+                <!-- Content for Instructions tab goes here -->
+                <div class="left_side card" style="font-size: 20px; line-height: 1.5;">
+                    <p>Price: <strong>Ksh.8000</strong></p>
+                    <p>Deadline <strong style="color: red;">27hrs</strong></p>
+                    <p>Task Size Large</p>
+                    <p>Type of Service: Programming</p>
+                    <p>Discipline: Web programming</p>
+                    <p>Programming Language: Javascript</p>
+                </div>
 
 
-               <div class="right_side card">
-                   <h3>Paper Instructions</h3>
-                  <p>
-                      {{$order->comments}}
-                   </p>
-               </div>
-           </div>
+                <div class="right_side card">
+                    <h3>Paper Instructions</h3>
+                    <p>Maize is a versatile crop that can grow in different varieties of soil, water, and climatic conditions. The crop has a wide range of tolerance to temperature conditions but grows well in warm regions where moisture is sufficient. The crop flourishes in regions with rainfall ranging from 1200mm to 2500mm but can adapt to regions receiving rainfall of up to 400 mm. The crop requires warm temperatures of between 15°C and 30 °C and thrives in a range of zones with altitudes ranging from 100 m to 2900 m ASL, depending on the variety.
+
+                        The crop is sensitive to moisture stress around tasseling time and during cob formation. Growth is favorable under a pH ranging from 5-8 with 5.5-7 being optimal because it is sensitive to salinity.
+                    </p>
+                </div>
+            </div>
         </div>
 
 
@@ -696,8 +647,8 @@
                     </div>
                 </div>
 
-{{--                <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>--}}
-{{--                <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>--}}
+                <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>
+                <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>
 
                 <script>
                     $(document).ready(function() {
@@ -860,39 +811,6 @@
         </div>
     </section>
 
-
-    <script>
-        // Get the deadline timestamp from the HTML element
-        const deadline = new Date(document.getElementById('deadline').innerText).getTime();
-
-        // Update the countdown every second
-        const countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Function to calculate and update the countdown
-        function updateCountdown() {
-            // Get the current time
-            const currentTime = new Date().getTime();
-
-            // Calculate the time remaining in milliseconds
-            const timeRemaining = deadline - currentTime;
-
-            // Check if the deadline has passed
-            if (timeRemaining <= 0) {
-                clearInterval(countdownInterval); // Stop the countdown if deadline has passed
-                document.getElementById('timeRemaining').innerText = 'Deadline has passed';
-            } else {
-                // Convert milliseconds to hours and minutes
-                const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
-                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-
-                // Display the time remaining
-                document.getElementById('timeRemaining').innerText = `(${hours}hrs ${minutes}mins)`;
-            }
-        }
-
-        // Initial call to update countdown when the page loads
-        updateCountdown();
-    </script>
     <script>
         document.querySelector('input[type=file]').addEventListener('change', function (e) {
             var fileName = e.target.files[0].name;

@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('availables', function (Blueprint $table) {
             $table->id();
+            $table->string('OrderId');
+            $table->string('assignmentType');
+            $table->string('typeOfService');
+            $table->string('topicTitle');
+            $table->string('discipline');
+            $table->text('pages');
+            $table->string('deadline');
+            $table->string('cpp');
+            $table->decimal('price', 8, 2);
+            $table->text('comments')->nullable();
+            $table->string('files');
+            $table->boolean('visible')->default(true);
+            $table->string('writer_id');
+            $table->string('writer_name');
+            $table->string('writer_phone');
             $table->timestamps();
         });
     }

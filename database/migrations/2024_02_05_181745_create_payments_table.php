@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->string('writer_id');
+            $table->string('writer_name');
+            $table->string('writer_phone');
+            $table->string('amount');
+            $table->string('trasaction_date');
+            $table->string('TransactionType');
+            $table->string('comments');
+            $table->string('paid_by');
+            $table->string('status')->default('unconfirmed');
             $table->timestamps();
         });
     }

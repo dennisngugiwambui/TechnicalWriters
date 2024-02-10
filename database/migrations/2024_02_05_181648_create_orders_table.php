@@ -21,8 +21,7 @@ return new class extends Migration
             $table->string('deadline');
             $table->string('cpp');
             $table->decimal('price', 8, 2);
-            $table->text('comments')->nullable();
-            $table->string('files')->default('N/A');
+            $table->text('comments');
             $table->boolean('visible')->default(false);
             $table->string('employee_id');
             $table->string('employee_name');

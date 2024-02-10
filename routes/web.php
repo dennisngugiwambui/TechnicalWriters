@@ -28,7 +28,10 @@ Route::get('/current', [App\Http\Controllers\HomeController::class, 'current'])-
 Route::get('/finished', [App\Http\Controllers\HomeController::class, 'Finished'])->name('finished');
 Route::get('/order/{id}', [App\Http\Controllers\HomeController::class, 'order'])->name('order');
 Route::get('/new_order',[App\Http\Controllers\HomeController::class, 'new_order']);
-Route::get('/new_files',[App\Http\Controllers\HomeController::class, 'new_files'])->name('new_files');
+Route::get('/new_files/{id}',[App\Http\Controllers\HomeController::class, 'new_files'])->name('new_files');
 
 //post new order
 Route::post('/orders', [App\Http\Controllers\DataController::class, 'orders'])->name('orders');
+Route::post('/get_files/{id}',[App\Http\Controllers\DataController::class, 'files'])->name('get_files');
+Route::post('/place_bid/{id}',[App\Http\Controllers\DataController::class, 'place_bid'])->name('place_bid');
+Route::post('/remove_bid/{id}',[App\Http\Controllers\DataController::class, 'remove_bid'])->name('remove_bid');

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{asset('Admin/assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('Admin/assets/css/responsive.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <!-- modernizr css -->
     <script src="{{asset('Admin/assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 </head>
@@ -87,6 +88,10 @@
 
         <!-- offset area end -->
         <!-- jquery latest version -->
+
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
         <script src="{{asset('Admin/assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
         <!-- bootstrap 4 js -->
         <script src="{{asset('Admin/assets/js/popper.min.js')}}"></script>
@@ -120,6 +125,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyDSBhBdaZIQgMyFgqF4+flfcOqKazf38y" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 </body>
 
 </html>

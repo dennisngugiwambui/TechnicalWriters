@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Available;
+use App\Models\Bid;
 use App\Models\Files;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -10,6 +12,7 @@ use Mockery\Exception;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Brian2694\Toastr\Facades\Toastr;
 
 class DataController extends Controller
 {
@@ -40,7 +43,6 @@ class DataController extends Controller
             $order->cpp = $request->cpp;
             $order->price = $request->cost;
             $order->comments = $request->comment;
-            $order->files='N/A';
             $order->employee_id = $user->id;
             $order->employee_name = $user->name;
             $order->employee_phone = $user->phone;
@@ -75,7 +77,7 @@ class DataController extends Controller
 
             // Redirect or return a response as needed
             Alert::success('success', 'order uploaded successfully')->persistent();
-            return redirect()->route('new_files');
+            return redirect()->route('new_files', ['id' => $order->id])->with('success', 'order uploaded successfully');
 
         } catch (Exception $ex) {
             return redirect()->back()->with('error', $ex->getMessage());
@@ -84,30 +86,144 @@ class DataController extends Controller
 
     public function files(Request $request)
     {
-        $files= new Files();
-        $order=Order::where('id', $request->id);
-        $user=auth()->user();
+        try {
+            $files = new Files();
+            $order = Order::findOrFail($request->id); // Use findOrFail to handle null case
+            $id = $request->id;
 
-        $files->assignmentId=$order->id;
-        $files->employee_id=$user->id;
-        $files->employee_name=$user->name;
-        $files->employee_phone=$user->phone;
+            $user = auth()->user();
 
-        $image = $request->file('files');
-        $imageContents = file_get_contents($image->path());
-        $base64Image = base64_encode($imageContents);
-            // Generate a unique identifier for the filename
-        $uniqueFilename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $files->assignmentId = $order->id;
+            $files->employee_id = $user->id;
+            $files->employee_name = $user->name;
+            $files->employee_phone = $user->phone;
+            // Get the contents of the file as a base64-encoded string
+            $base64Content = base64_encode(file_get_contents($request->file('files')->path()));
 
-        file_put_contents(public_path('assignment') . '/' . $uniqueFilename, base64_decode($base64Image));
+            // Trim the base64 string to a maximum length of 10 characters
+            $trimmedBase64 = Str::limit($base64Content, 10, '');
 
-        $files->files = $uniqueFilename;
+            // Set the trimmed base64 string as the files attribute
+            $files->files = $trimmedBase64;
+            // Save the files record
+            $files->save();
 
-        return response()->json($files);
-       // $files->save();
+            return redirect()->back()->with('success', 'Files uploaded successfully');
+        } catch (\Exception $e) {
+            // Handle the exception, log, or redirect with an error message
+            Alert::error('error!', $e->getMessage())->persistent();
+            return redirect()->back()->with('error', 'Error uploading files: ' . $e->getMessage());
+        }
+    }
 
-        return  redirect()->back()->with('success', 'files uploaded successfully');
+
+    public function place_bid(Request $request)
+    {
+        // Find the available order by ID
+        $order = Order::findOrFail($request->id);
+        $bidder = auth()->user();
+
+        // Check if the user has already applied for this order
+        $existingBid = Bid::where('OrderId', $order->id)
+            ->where('writer_id', $bidder->id)
+            ->first();
+
+        // If the user has already applied for the order, return an error message
+        if ($existingBid) {
+            return redirect()->back()->with('error', 'You have already applied for this order');
+        }
+
+        // Create a new bid instance
+        $bid = new Bid();
+
+        // Retrieve the current user
+
+
+        // Retrieve files associated with the order
+        $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
+
+        // Populate bid properties
+        $bid->OrderId=$order->id;
+        $bid->assignmentType = $order->assignmentType;
+        $bid->typeOfService = $order->typeOfService;
+        $bid->topicTitle = $order->topicTitle;
+        $bid->discipline = $order->discipline;
+        $bid->pages = $order->pages;
+        $bid->deadline = $order->deadline;
+        $bid->cpp = $order->cpp;
+        $bid->price =$order->price;
+        $bid->comments = $order->comments;
+        $bid->writer_id = $bidder->id;
+        $bid->writer_name = $bidder->name;
+        $bid->writer_phone = $bidder->phone;
+        // Check if there are files associated with the order
+        if (count($files) > 0) {
+            // If there are files, set them in the bid
+            $bid->files = $files;
+        } else {
+            // If no files, set a default value (e.g., "No files")
+            $bid->files = "No files";
+        }
+        $bid->ucompleted_orders=0;
+
+        // Save the bid
+        $bid->save();
+
+        Toastr::success('bid placed successfully', 'success');
+
+        // Redirect to a specific page after a successful bid
+        return redirect()->back()->with('success', 'Bid applied successfully');
+    }
+
+
+
+    public function available(Request $request)
+    {
+       $available= new Available();
+
+        $order = Available::findOrFail($request->id);
+        $bidder= auth()->user();
+        $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
+
+        $available->assignmentType = $order->assignmentType;
+        $available->typeOfService = $order->typeOfService;
+        $available->topicTitle = $order->topicTitle;
+        $available->discipline = $order->discipline;
+        $available->pages = $order->pages;
+        $available->deadline = $order->deadline;
+        $available->cpp = $order->cpp;
+        $available->price = $order->cost;
+        $available->comments = $order->comment;
+        $available->writer_id = 'N/A';
+        $available->writer_name = 'N/A';
+        $available->writer_phone = 'N/A';
+        $available->files=$files;
+
+        dd($available);
+
+        return redirect()->back()->with('success','order successfully placed in available');
+
 
     }
+
+    public function remove_bid(Request $request)
+    {
+        // Find the bid by ID
+        $bid = Bid::find($request->id);
+
+        if (!$bid) {
+            Alert::error('Error!', 'bid id is not found. Contact admin');
+            return redirect()->back();
+        }
+
+        $bid->delete();
+
+        Toastr::success('bid removed successfully', 'success');
+
+        return redirect()->back()->with('success', 'bid removed successfully');
+
+    }
+
+
 
 }

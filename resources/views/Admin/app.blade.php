@@ -26,6 +26,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- modernizr css -->
     <script src="{{asset('Admin/assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsMvGmzQ8FjRHD10fl5Vf5SHhp/G/gU8hqCpHZ+8hb8lT6Cdf3N2x5uiJN3eCrL4" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -47,7 +51,7 @@
                 <h style="color: #1cbb8c;">Welcome {{auth()->user()->name}}</h>
             </div>
         </div>
-        @include('Writers.sidebar')
+        @include('Admin.sidebar')
     </div>
     <!-- sidebar menu area end -->
     <!-- main content area start -->
@@ -120,6 +124,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyDSBhBdaZIQgMyFgqF4+flfcOqKazf38y" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+          {!! Toastr::message() !!}
 </body>
 
 </html>

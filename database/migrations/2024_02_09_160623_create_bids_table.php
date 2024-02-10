@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('my_orders', function (Blueprint $table) {
+        Schema::create('bids', function (Blueprint $table) {
             $table->id();
             $table->string('OrderId');
             $table->string('assignmentType');
@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('deadline');
             $table->string('cpp');
             $table->decimal('price', 8, 2);
-            $table->text('comments')->nullable();
+            $table->text('comments');
             $table->string('files');
             $table->boolean('visible')->default(true);
             $table->string('writer_id');
             $table->string('writer_name');
             $table->string('writer_phone');
+            $table->string('ucompleted_orders');
             $table->timestamps();
         });
     }
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('my_orders');
+        Schema::dropIfExists('bids');
     }
 };

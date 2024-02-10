@@ -34,7 +34,7 @@
                         <span class="badge">{{$available}}</span>
                     </a>
                 </li>
-                <li><a href="/current"><i class="fa fa-user-md"></i> <span>Current</span></a></li>
+                <li><a href="/new_order"><i class="fa fa-user-md"></i> <span>New Order</span></a></li>
                 <li><a href="/revision"><i class="fa fa-bookmark"></i> <span>Revision</span></a></li>
                 <li><a href="/dispute"><i class="fa fa-envelope"></i> <span>Dispute</span></a></li>
                 <li><a href="/finished"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
@@ -43,7 +43,7 @@
                     <a href="/bids">
                         <i class="fa fa-file-archive-o"></i>
                         <span>My Bids</span>
-                        <span class="badge">{{$bidCount}}</span>
+                        <span class="badge">5</span>
                     </a>
                 </li>
 
