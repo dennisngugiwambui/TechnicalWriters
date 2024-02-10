@@ -13,6 +13,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
+
 
 class DataController extends Controller
 {
@@ -179,31 +181,55 @@ class DataController extends Controller
 
     public function available(Request $request)
     {
-       $available= new Available();
+        try {
+            DB::beginTransaction();
 
-        $order = Available::findOrFail($request->id);
-        $bidder= auth()->user();
-        $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
+            $available = new Available();
+            $order = Order::findOrFail($request->id);
+            $bidder = auth()->user();
+            $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
 
-        $available->assignmentType = $order->assignmentType;
-        $available->typeOfService = $order->typeOfService;
-        $available->topicTitle = $order->topicTitle;
-        $available->discipline = $order->discipline;
-        $available->pages = $order->pages;
-        $available->deadline = $order->deadline;
-        $available->cpp = $order->cpp;
-        $available->price = $order->cost;
-        $available->comments = $order->comment;
-        $available->writer_id = 'N/A';
-        $available->writer_name = 'N/A';
-        $available->writer_phone = 'N/A';
-        $available->files=$files;
+            $available->OrderId=$order->id;
+            $available->assignmentType = $order->assignmentType;
+            $available->typeOfService = $order->typeOfService;
+            $available->topicTitle = $order->topicTitle;
+            $available->discipline = $order->discipline;
+            $available->pages = $order->pages;
+            $available->deadline = $order->deadline;
+            $available->cpp = $order->cpp;
+            $available->price = $order->price;
+            $available->comments = $order->comment;
+            $available->writer_id = 'N/A';
+            $available->writer_name = 'N/A';
+            $available->writer_phone = 'N/A';
 
-        dd($available);
+            if (count($files) > 0) {
+                // If there are files, set them in the bid
+                $available->files = $files;
+            } else {
+                // If no files, set a default value (e.g., "No files")
+                $available->files = "No files";
+            }
 
-        return redirect()->back()->with('success','order successfully placed in available');
+            // Save the available record
+            $available->save();
 
+            //dd($available);
 
+            // Delete the order record
+           $order->delete();
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Order successfully placed in available');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Log or handle the exception as needed
+            dd($e->getMessage());
+
+            return redirect()->back()->with('error', 'Failed to process the order');
+        }
     }
 
     public function remove_bid(Request $request)

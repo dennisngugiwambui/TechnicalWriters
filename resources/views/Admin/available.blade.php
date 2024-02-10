@@ -159,28 +159,36 @@
                     <th class="orders-table-header">ACTION</th>
                 </tr>
                 </thead>
-                <tbody>
-
-                @foreach($order as $order)
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
-                    </td>
-                    <td class="orders-table-data">{{$order->topicTitle}}</td>
-                    <td class="orders-table-data">{{$order->discipline}}</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">{{$order->deadline}}</td>
-                    <td class="orders-table-data">{{$order->cpp}}</td>
-                    <td class="orders-table-data">
-                        <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$order->id}}';"></i>
-                        <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" onclick="deleteOrder('Order#12346')"></i>
-                    </td>
-
-                </tr>
-                @endforeach
-                </tbody>
+                @if(count($order) > 0)
+                    <tbody>
+                    @foreach($order as $orderItem)
+                        <tr>
+                            <td class="orders-table-data">
+                                <span class="orders-table-data-revision">{{$orderItem->assignmentType}}</span>
+                                <br>
+                                <span class="orders-table-data-order-id">Order#{{$orderItem->id}}</span>
+                            </td>
+                            <td class="orders-table-data">{{$orderItem->topicTitle}}</td>
+                            <td class="orders-table-data">{{$orderItem->discipline}}</td>
+                            <td class="orders-table-data">-</td>
+                            <td class="orders-table-data">{{$orderItem->deadline}}</td>
+                            <td class="orders-table-data">{{$orderItem->cpp}}</td>
+                            <td class="orders-table-data">
+                                <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$orderItem->OrderId}}';"></i>
+                                <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" onclick="deleteOrder('Order#{{$orderItem->id}}')"></i>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                @else
+                    <tbody>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <p>There are currently no orders to display.</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                @endif
             </table>
         </div>
 

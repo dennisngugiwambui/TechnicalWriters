@@ -158,18 +158,18 @@
                 </thead>
                 <tbody>
                 @foreach($order as $order)
-                    <tr onclick="window.location.href='/order/{{$order->id}}';" style="cursor: pointer;">
+                    <tr id="click" onclick="window.location.href='/order/{{$order->OrderId}}';" style="cursor: pointer;">
                         <td class="orders-table-data">
                             <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
                             <br>
-                            <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
+                            <span class="orders-table-data-order-id">Order#{{$order->OrderId}}</span>
                         </td>
                         <td class="orders-table-data">{{$order->topicTitle}}</td>
                         <td class="orders-table-data">{{$order->discipline}}</td>
                         <td class="orders-table-data">-</td>
                         <td class="orders-table-data">{{$order->deadline}}</td>
                         <td class="orders-table-data">{{$order->cpp}}</td>
-                        <td class="orders-table-data">$12.77</td>
+                        <td class="orders-table-data">Ksh{{$order->price}}</td>
                     </tr>
                 @endforeach
 
@@ -179,6 +179,11 @@
             </table>
         </div>
     </section>
+
+
+    <script>
+
+    </script>
 
 
 

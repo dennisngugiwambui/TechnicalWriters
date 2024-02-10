@@ -1,4 +1,4 @@
-@extends('Writers.app')
+@extends('Admin.app')
 
 @section('content')
 

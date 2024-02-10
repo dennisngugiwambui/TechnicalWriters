@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('writer_id');
             $table->string('writer_name');
             $table->string('writer_phone');
+            $table->string('status')->default('visible');
             $table->timestamps();
         });
     }

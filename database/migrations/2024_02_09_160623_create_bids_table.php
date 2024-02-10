@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('writer_name');
             $table->string('writer_phone');
             $table->string('ucompleted_orders');
+            $table->string('status')->default('bid');
             $table->timestamps();
         });
     }

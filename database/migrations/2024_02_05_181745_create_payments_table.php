@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('TransactionType');
             $table->string('comments');
             $table->string('paid_by');
+            $table->string('paid_date');
             $table->string('status')->default('unconfirmed');
             $table->timestamps();
         });

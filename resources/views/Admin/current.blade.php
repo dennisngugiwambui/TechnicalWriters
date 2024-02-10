@@ -1,4 +1,4 @@
-@extends('Writers.app')
+@extends('Admin.app')
 
 @section('content')
 
@@ -151,19 +151,49 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($myorder as $order)
-                    <tr onclick="window.location.href='/order/{{$order->OrderId}}';" style="cursor: pointer;">
+                @foreach($order as $order)
+                    <tr>
                         <td class="orders-table-data">
                             <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
                             <br>
-                            <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
+                            <span class="orders-table-data-order-id">Order#{{$order->OrderId}}</span>
                         </td>
                         <td class="orders-table-data">{{$order->topicTitle}}</td>
                         <td class="orders-table-data">{{$order->discipline}}</td>
                         <td class="orders-table-data">-</td>
                         <td class="orders-table-data">{{$order->deadline}}</td>
                         <td class="orders-table-data">{{$order->cpp}}</td>
-                        <td class="orders-table-data">$12.77</td>
+                        <td class="orders-table-data">
+                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$order->id}}"></i>
+                            <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal_{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('available', ['id'=>$order->id])}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <p>By pressing this button you will have made this order available to the writer. Do you want to continue?</p>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
                     </tr>
                 @endforeach
                 </tbody>
