@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{asset('Admin/assets/css/responsive.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!-- modernizr css -->
     <script src="{{asset('Admin/assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 </head>

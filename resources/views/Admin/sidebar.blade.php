@@ -42,7 +42,15 @@
                         <span class="badge">{{$current}}</span>
                     </a>
                 </li>
-                <li><a href="/revision"><i class="fa fa-bookmark"></i> <span>Revision</span></a></li>
+                <li>
+                    <a href="/revision">
+                        <i class="fa fa-bookmark">
+
+                        </i>
+                        <span>Revision</span>
+                        <span class="badge">{{$myrevision}}</span>
+                    </a>
+                </li>
                 <li><a href="/dispute"><i class="fa fa-envelope"></i> <span>Dispute</span></a></li>
                 <li><a href="/finished"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
 

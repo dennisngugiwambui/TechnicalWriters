@@ -23,4 +23,14 @@ class Order extends Model
     {
         return $this->hasOne(MyOrder::class, 'OrderId');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'OrderId');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'OrderId');
+    }
 }

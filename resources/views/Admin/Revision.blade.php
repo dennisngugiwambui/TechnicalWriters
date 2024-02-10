@@ -1,4 +1,4 @@
-@extends('Writers.app')
+@extends('Admin.app')
 
 @section('content')
 
@@ -151,32 +151,21 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($revision as $revision)
                 <tr>
                     <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
+                        <span class="orders-table-data-revision">{{$revision->assignmentType}}</span>
                         <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
+                        <span class="orders-table-data-order-id">Order#{{$revision->OrderId}}</span>
                     </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
+                    <td class="orders-table-data">{{$revision->topicTitle}}</td>
+                    <td class="orders-table-data">{{$revision->discipline}}</td>
                     <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
+                    <td class="orders-table-data">{{$revision->deadline}}</td>
+                    <td class="orders-table-data">{{$revision->cpp}}</td>
+                    <td class="orders-table-data">{{$revision->price}}</td>
                 </tr>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

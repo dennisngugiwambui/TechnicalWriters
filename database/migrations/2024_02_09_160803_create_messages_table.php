@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->string('OrderId');
             $table->string('from');
             $table->string('from_phone');
             $table->string('from_email');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('to_phone');
             $table->string('title');
             $table->string('date');
-            $table->string('message');
+            $table->longText('message');
             $table->string('visible')->default('yes');
             $table->string('read_status')->default('no');
             $table->string('permission')->default('');

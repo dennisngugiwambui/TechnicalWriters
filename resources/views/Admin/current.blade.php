@@ -135,7 +135,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Writer Assigned orders (1)</h2>
+            <h2 class="orders-title">Newly Added Orders (1)</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">
@@ -165,7 +165,7 @@
                         <td class="orders-table-data">{{$order->cpp}}</td>
                         <td class="orders-table-data">
                             <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$order->id}}"></i>
-                            <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+
 
 
                             <!-- Modal -->
@@ -202,13 +202,16 @@
     </section>
 
 
-    <!-- done and delivered orders -->
+    <!-- On progress Orders -->
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Done, Delivered Orders (2)</h2>
+            <h2 class="orders-title">All Orders In Progress( {{$current}})</h2>
         </div>
         <div class="orders-table">
-            <table class="orders-table-content">
+            <div class="orders-search">
+                <input type="text" class="form-control fancy-search" placeholder="Search Orders" id="myInput" onkeyup="myFunction()">
+            </div>
+            <table class="orders-table-content" id="myTable">
                 <thead>
                 <tr>
                     <th class="orders-table-header">ORDER ID</th>
@@ -221,36 +224,76 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
+                @foreach($onprogress as $onprogress)
+                    <tr>
+                        <td class="orders-table-data">
+                            <span class="orders-table-data-revision">{{$onprogress->assignmentType}}</span>
+                            <br>
+                            <span class="orders-table-data-order-id">Order#{{$onprogress->OrderId}}</span>
+                        </td>
+                        <td class="orders-table-data">{{$onprogress->topicTitle}}</td>
+                        <td class="orders-table-data">{{$onprogress->discipline}}</td>
+                        <td class="orders-table-data">-</td>
+                        <td class="orders-table-data">{{$onprogress->deadline}}</td>
+                        <td class="orders-table-data">{{$onprogress->cpp}}</td>
+                        <td class="orders-table-data">
+                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$onprogress->id}}"></i>
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal_{{$onprogress->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('available', ['id'=>$onprogress->id])}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <p>By pressing this button you will have made this order available to the writer. Do you want to continue?</p>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
     </section>
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 
 @endsection

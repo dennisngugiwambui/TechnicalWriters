@@ -5,7 +5,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
         .orders {
             background-color: #f8f9fa;
@@ -772,10 +772,10 @@
             <!-- Content for Messages tab goes here -->
             <h3>Messages</h3>
             <div style="margin: 5px;">
-                <button class="buttone" data-bs-toggle="modal" data-bs-target="#exampleModal">New Message</button>
+                <button class="buttone" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$order->id}}">New Message</button>
 
                 <!-- Message Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal_{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -783,68 +783,63 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <form method="post" action="{{route('Messages')}}">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="recipient" class="form-label">Recipient</label>
+                                        <select class="form-control recipient" id="recipient" name="recipient" onchange="updateRoomOptions(this.value)">
+                                            <option value="" selected disabled hidden>Select Recipient</option>
+                                            <option value="support">Support</option>
+                                            <option value="client">Client</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="subject" class="form-label">Subject</label>
+                                        <input type="text" class="form-control" id="subject" name="subject" value="Order#{{$order->id}}" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message" class="form-label">Message</label>
+                                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @foreach($messages as $message)
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="heading{{$message->id}}">
+                            <h5 class="mb-0">
+                    <span class="collapsed" data-toggle="collapse" data-target="#collapse{{$message->id}}" aria-expanded="false" aria-controls="collapse{{$message->id}}">
+                        <p>
+                            @if(Auth::id() == $message->from)
+                                Me > {{$message->to}}
+                            @elseif(Auth::id() == $message->to)
+                                {{$message->from}} > Me
+                            @endif
+                            Order #{{$message->orderId}}: {{$message->title}}
+                            {{$message->date}}
+                        </p>
+                    </span>
+                            </h5>
+                        </div>
+                        <div id="collapse{{$message->id}}" class="collapse" aria-labelledby="heading{{$message->id}}" data-parent="#accordion">
+                            <div class="card-body" style="white-space: pre-line;">
+                                {{$message->message}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                   <p>
-                        Support Dpt.>Me
-                    Order #556011480: New message
-                    31 Jan, 02:23 AM
-                   </p>
-                </span>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body" style="white-space: pre-line;">
-                            Hey Team,
+            @endforeach
 
-                            We've noticed that chatting with customers isn't always smooth sailing, and it's causing a bit of a headache with revisions and delays.😓
-
-                            We really want to get to the bottom of this and make things better for everyone.
-
-                            So, we're diving into what's going on with communication between you guys and the customers. Our aim? To figure out where things are getting tangled up and how we can untangle them. We think that with a bit of teamwork, we can find ways to make our conversations clearer and order processing smoother.
-
-                            We’ve put together a questionnaire to gather your insights. It’s your chance to share what you’ve noticed, any tricky spots, and your genius ideas for making things better. We will accept responses till the 12th of February.
-
-                            Your feedback is super important. Thank you in advance for your contribution! 🤍
-
-                            Best regards,
-
-                            Nellie
-
-                            STEM Writers Manager
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h5 class="mb-0">
-                <span class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Me>Support Dpt.           Order #556011480: New message         #556011480   31 Jan, 02:22 AM
-                </span>
-                        </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- Your message content goes here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
 
@@ -922,14 +917,12 @@
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <script type="text/javascript">
 
-        $("#apartment").select2({
-            placeholder: "Select a Name",
-            allowClear: true
-        });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

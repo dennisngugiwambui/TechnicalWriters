@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Available;
 use App\Models\Bid;
 use App\Models\Files;
+use App\Models\Message;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -249,6 +250,59 @@ class DataController extends Controller
         Toastr::success('bid removed successfully', 'success');
 
         return redirect()->back()->with('success', 'bid removed successfully');
+
+    }
+
+    public function Messages(Request $request)
+    {
+        try {
+
+            // Capture sender information
+            $senderId = Auth::id();
+            $senderName = Auth::user()->name;
+            $senderUserType = Auth::user()->usertype;
+            $senderPhone = Auth::user()->phone;
+            $senderEmail= Auth::user()->email;
+
+            // Get recipient, order ID, and message from the request
+            $recipient = $request->input('recipient');
+            $orderId = $request->input('orderId');
+            $messageContent = $request->input('message');
+
+            // Get recipient, order ID, and message from the request
+            $recipient = $request->recipient;
+            $orderId = $request->input('orderId');
+            $messageContent = $request->input('message');
+
+            // Create a new Message instance
+            $message = new Message([
+                'from' => $senderName,
+                'from_phone' => $senderPhone,
+                'from_email' => $senderEmail,
+                'to' => $recipient,
+                'to_email' => 'N/A',
+                'to_phone' => 'N/A',
+                'title' => 'New Message',
+                'date' => now(),
+                'message' => $messageContent,
+            ]);
+
+            // Save the message
+            $message->save();
+
+            // Optionally, you can return a response or redirect as needed
+            // return response()->json($message);
+
+            return redirect()->back()->with('success', 'message inserted successfully');
+        }catch (\Exception $e) {
+
+            Alert::success('success', $e->getMessage());
+            //dd($e->getMessage());
+
+            return redirect()->back()->with('error', 'Failed to process the order');
+        }
+
+
 
     }
 
