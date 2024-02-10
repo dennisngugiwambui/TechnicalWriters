@@ -6,6 +6,7 @@ use App\Models\Available;
 use App\Models\Bid;
 use App\Models\MyOrder;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,7 +20,16 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                $user = Auth::user();
+                if ($user->usertype === 'suspended') {
+                    Auth::logout();
+                    return redirect()->route('login')->with('error', 'Your account is suspended. Please contact support for further assistance.');
+                }
+            }
+            return $next($request);
+        });
     }
 
     /**
@@ -122,6 +132,10 @@ class HomeController extends Controller
                 return view('Admin.current', compact('bidCount', 'available', 'myorder', 'current', 'order'));
             } else if ($usertype === 'pending') {
                 return view('pending');
+            }else if($usertype === 'suspended')
+            {
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Your account is suspended. Please contact support for further assistance.');
             }
         } else {
             return view('auth.login');
@@ -131,6 +145,7 @@ class HomeController extends Controller
 
     public function Dispute()
     {
+        $bidder=auth()->user();
         $current = MyOrder::where('writer_id', $bidder->id)->where('status', 'current')->count();
         return view('Writers.Dispute', compact('current'));
     }
@@ -141,35 +156,59 @@ class HomeController extends Controller
             $usertype = Auth::user()->usertype;
 
             if ($usertype === 'writer') {
-                $order = Order::findOrFail($request->id);
-                $bidder = auth()->user();
-                $bidCount=Bid::count();
-                $writer=auth()->user();
-                $current= MyOrder::where('writer_id',$bidder->id)->whereIn('status', 'current')->count();
+                // Find the order with associated data
+                $order = Order::with(['available', 'bids', 'myOrder'])
+                    ->find($request->OrderId);
 
-                // Find the bid for the current user and order
-                $bid = Bid::where('OrderId', $order->id)
-                    ->where('writer_id', auth()->user()->id)
-                    ->first();
+                if ($order) {
+                    $available = Available::count();
+                    $current = MyOrder::where('status', 'current')->count();
+                    $bidCount = Bid::count();
+                    $bidder = auth()->user();
 
-                $existingBid = Bid::where('OrderId', $order->id)
-                    ->where('writer_id', $bidder->id)
-                    ->first();
+                    // Find the bid for the current user and order
+                    $bid = $order->bids
+                        ->where('writer_id', $bidder->id)
+                        ->first();
 
-                $available = Order::count();
-                return view('Writers.order', compact('available', 'order', 'bid', 'existingBid', 'bidCount', 'current'));
-            } else if ($usertype === 'admin') {
-                $order = Order::findOrFail($request->id);
-                $available = Order::count();
-                $current = MyOrder::where('status', 'current')->count();
-                return view('Admin.order', compact('available', 'order', 'current'));
-            } else if ($usertype === 'pending') {
+                    // Check if the current user has an existing bid
+                    $existingBid = $order->bids
+                        ->where('writer_id', $bidder->id)
+                        ->first();
+
+                    return view('Writers.order', compact('order', 'available', 'current', 'bidCount', 'existingBid', 'bid', 'bidCount'));
+                } else {
+                    // Handle the case when the order is not found
+                    // You might want to redirect or display an error message
+                    return redirect()->back()->with('error', 'Order not found.');
+                }
+            } elseif ($usertype === 'admin') {
+                // Assuming you want to retrieve data related to the Order for the admin as well
+                $order = Order::with(['available', 'bids', 'myOrder'])
+                    ->find($request->OrderId);
+
+                if ($order) {
+                    $available = Available::count();
+                    $current = MyOrder::where('status', 'current')->count();
+                    $bidCount = Bid::count();
+
+                    return view('Admin.order', compact('order', 'available', 'current', 'bidCount'));
+                } else {
+                    // Handle the case when the order is not found
+                    // You might want to redirect or display an error message
+                    return redirect()->back()->with('error', 'Order not found.');
+                }
+            } elseif ($usertype === 'pending') {
                 return view('pending');
+            } elseif ($usertype === 'suspended') {
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Your account is suspended. Please contact support for further assistance.');
             }
         } else {
             return view('auth.login');
         }
     }
+
 
 
     public function new_order()
@@ -191,6 +230,16 @@ class HomeController extends Controller
 
     }
 
+    public function order_details(Request $request)
+    {
+        $order=Available::find($request->OrderId);
+        $available= Available::count();
+        $current = MyOrder::where('status', 'current')->count();
+        $bidCount=Bid::count();
+        return view('Admin.order', compact('order', 'available', 'current', 'bidCount'));
+
+    }
+
     public function new_files(Request $request)
     {
         if (Auth::id()) {
@@ -207,6 +256,16 @@ class HomeController extends Controller
         } else {
             return view('auth.login');
         }
+
+    }
+
+    public function users()
+    {
+        $users=User::all();
+        $current = MyOrder::where('status', 'current')->count();
+        $available=Order::count();
+        //$order=Order::find($request->id);
+        return view('Admin.change_users', compact('users', 'available', 'current'));
 
     }
 }
