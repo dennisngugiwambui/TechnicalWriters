@@ -135,7 +135,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Writer Assigned orders (1)</h2>
+            <h2 class="orders-title">Writer Assigned orders ({{$assignedCount}})</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">
@@ -175,7 +175,7 @@
     <!-- done and delivered orders -->
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Done, Delivered Orders (2)</h2>
+            <h2 class="orders-title">Done, Delivered Orders ({{$deliveredCount}})</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">
@@ -191,32 +191,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
+                @foreach($delivered as $order)
+                    <tr onclick="window.location.href='/order/{{$order->OrderId}}';" style="cursor: pointer;">
+                        <td class="orders-table-data">
+                            <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
+                            <br>
+                            <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
+                        </td>
+                        <td class="orders-table-data">{{$order->topicTitle}}</td>
+                        <td class="orders-table-data">{{$order->discipline}}</td>
+                        <td class="orders-table-data">-</td>
+                        <td class="orders-table-data">{{$order->deadline}}</td>
+                        <td class="orders-table-data">{{$order->cpp}}</td>
+                        <td class="orders-table-data">$12.77</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

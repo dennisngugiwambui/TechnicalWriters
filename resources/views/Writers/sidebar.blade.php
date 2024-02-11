@@ -38,11 +38,25 @@
                     <a href="/current">
                         <i class="fa fa-user-md">
                         </i>
-                        <span>Orders</span>
+                        <span>Current</span>
                         <span class="badge">{{$current}}</span>
                     </a></li>
-                <li><a href="/revision"><i class="fa fa-bookmark"></i> <span>Revision</span></a></li>
-                <li><a href="/dispute"><i class="fa fa-envelope"></i> <span>Dispute</span></a></li>
+                <li>
+                    <a href="/revision">
+                        <i class="fa fa-bookmark"></i>
+                        <span>Revision</span>
+                        <span class="badge">{{$myrevision}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('dispute')}}">
+                        <i class="fa fa-envelope">
+
+                        </i>
+                        <span>Dispute</span>
+                        <span class="badge">{{$disputeCount}}</span>
+                    </a>
+                </li>
                 <li><a href="/finished"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
 
                 <li>
@@ -53,9 +67,9 @@
                     </a>
                 </li>
 
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Messages</span></a></li>
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Finance</span></a></li>
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Profile</span></a></li>
+                <li><a href="/messages"><i class="fa fa-users"></i> <span>Messages</span></a></li>
+                <li><a href="/finance"><i class="fa fa-users"></i> <span>Finance</span></a></li>
+                <li><a href="/dashboard"><i class="fa fa-users"></i> <span>Profile</span></a></li>
                 <li><a href="/tenants"><i class="fa fa-lock"></i> <span>Logout</span></a></li>
             </ul>
         </nav>
