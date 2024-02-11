@@ -47,7 +47,7 @@ class HomeController extends Controller
 
                 return view('Writers.index', compact('order', 'available', 'bidCount', 'current', 'disputeCount', 'myrevision', 'finishedCount'));
             } else if ($usertype === 'admin') {
-                $order = Available::all();
+                $order = Available::where('status', 'visible')->get();
                 $available = Available::where('status', 'visible')->count();
                 $current = Order::where('status', 'visible')->count();
                 $bidCount = Bid::where('status', 'bid')->count();
@@ -175,7 +175,7 @@ class HomeController extends Controller
                 $writer = auth()->user();
                 $available = Available::where('status', 'visible')->count();
                 $bidCount = Bid::where('writer_id', $writer->id)->count();
-                $myorder = MyOrder::where('writer_id', $writer->id)->get();
+                $myorder = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->get();
                 $writer = auth()->user();
                 $current = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->count();
                 $delivered = MyOrder::where('writer_id', $writer->id)->where('status', ['done', 'delivered'])->get();
@@ -280,7 +280,7 @@ class HomeController extends Controller
                     $existingBid = $order->bids
                         ->where('writer_id', $bidder->id)
                         ->first();
-                    $messages = Message::where('orderId', $request->OrderId)->get();
+                    $messages = Message::where('orderId', $request->OrderId)->orderBy('created_at', 'desc')->get();
                     $disputeCount = MyOrder::whereIn('status', ['dispute'])->count();
                     $myrevision = MyOrder::where('writer_id', $bidder->id)->where('status', 'revision')->count();
                     $finishedCount = MyOrder::where('writer_id', $bidder->id)->where('status', 'finished')->count();
@@ -379,8 +379,9 @@ class HomeController extends Controller
         $current = Order::where('status', 'visible')->count();
         $available = Available::where('status', 'visible')->count();
         //$order=Order::find($request->id);
+        $bidCount=Bid::where('status','bid')->count();
         $myrevision = MyOrder::where('status', 'revision')->count();
-        return view('Admin.change_users', compact('users', 'available', 'current', 'myrevision'));
+        return view('Admin.change_users', compact('users', 'available', 'current', 'myrevision', 'bidCount'));
 
     }
 
@@ -474,9 +475,10 @@ class HomeController extends Controller
         $bidsGroupedByOrderId = $orders->map(function ($order) {
             return [
                 'order_id' => $order->id,
-                'bids' => $order->bids->groupBy('OrderId'),
+                'bids' => $order->bids->where('status', 'bid')->groupBy('OrderId'),
             ];
         });
+
         $available = Available::where('status', 'visible')->count();
         //$bidCount = Bid::where('writer_id', $bidder->id)->count();
         $writer = auth()->user();

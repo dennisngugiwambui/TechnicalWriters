@@ -250,9 +250,19 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route('available', ['id'=>$onprogress->id])}}" method="post" enctype="multipart/form-data">
+                                            <form action="{{route('ChangeStatus', ['id'=>$onprogress->OrderId])}}" method="post" enctype="multipart/form-data">
                                                 @csrf
-                                                <p>By pressing this button you will have made this order available to the writer. Do you want to continue?</p>
+
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Order Status</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" name="usertype">
+                                                            <option disabled selected value="">----</option>
+                                                            <option value="cancel">Cancel</option>
+                                                            <option value="reassign">Reassign</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>

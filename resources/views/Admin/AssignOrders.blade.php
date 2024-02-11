@@ -162,8 +162,9 @@
                                 <td class="orders-table-data">{{$bid->first()->deadline}}</td>
                                 <td class="orders-table-data">{{$bid->first()->assignmentType}}</td>
                                 <td class="orders-table-data">
-                                    <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$bid->first()->OrderId}}';">Assign</i>
+                                    <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/setOrders/{{$bid->first()->OrderId}}';">Assign</i>
                                 </td>
+
                             </tr>
                         @endforeach
                         </tbody>
