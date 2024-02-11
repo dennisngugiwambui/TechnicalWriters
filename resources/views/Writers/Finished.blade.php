@@ -137,6 +137,9 @@
         <div class="orders-header">
             <h2 class="orders-title">Finished orders</h2>
         </div>
+        <div class="orders-search">
+            <input type="text" class="form-control fancy-search" placeholder="Search Orders" id="myInput" onkeyup="myFunction()">
+        </div>
         <div class="orders-table">
             <table class="orders-table-content">
                 <thead>
@@ -151,19 +154,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">3000</td>
-                    <td class="orders-table-data">2500</td>
-                    <td class="orders-table-data">4/5</td>
-                </tr>
+                @foreach($completed as $order)
+                    <tr>
+                        <td class="orders-table-data">
+                            <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
+                            <br>
+                            <span class="orders-table-data-order-id">Order#{{$order->id}}</span>
+                        </td>
+                        <td class="orders-table-data">{{$order->topicTitle}}</td>
+                        <td class="orders-table-data">{{$order->discipline}}</td>
+                        <td class="orders-table-data">-</td>
+                        <td class="orders-table-data">{{$order->deadline}}</td>
+                        <td class="orders-table-data">{{$order->cpp}}</td>
+                        <td class="orders-table-data">Ksh. {{$order->price}}</td>
+                    </tr>
+                @endforeach
                 <tr>
                     <td class="orders-table-data">
                         <span class="orders-table-data-revision">Revision</span>

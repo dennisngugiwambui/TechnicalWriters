@@ -135,7 +135,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">Newly Added Orders (1)</h2>
+            <h2 class="orders-title">Newly Added Orders ({{$current}})</h2>
         </div>
         <div class="orders-table">
             <table class="orders-table-content">
@@ -205,7 +205,7 @@
     <!-- On progress Orders -->
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">All Orders In Progress( {{$current}})</h2>
+            <h2 class="orders-title">All Orders In Progress( {{$assignedOrders}})</h2>
         </div>
         <div class="orders-table">
             <div class="orders-search">

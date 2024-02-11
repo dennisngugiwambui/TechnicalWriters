@@ -152,7 +152,7 @@
                 </thead>
                 <tbody>
                 @foreach($myorder as $order)
-                    <tr onclick="window.location.href='/order/{{$order->OrderId}}';" style="cursor: pointer;">
+                    <tr onclick="window.location.href='/orders/{{$order->OrderId}}';" style="cursor: pointer;">
                         <td class="orders-table-data">
                             <span class="orders-table-data-revision">{{$order->assignmentType}}</span>
                             <br>
@@ -163,7 +163,7 @@
                         <td class="orders-table-data">-</td>
                         <td class="orders-table-data">{{$order->deadline}}</td>
                         <td class="orders-table-data">{{$order->cpp}}</td>
-                        <td class="orders-table-data">$12.77</td>
+                        <td class="orders-table-data">Ksh. {{$order->price}}</td>
                     </tr>
                 @endforeach
                 </tbody>

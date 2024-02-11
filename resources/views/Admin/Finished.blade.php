@@ -137,7 +137,7 @@
     <!-- On progress Orders -->
     <section class="orders">
         <div class="orders-header">
-            <h2 class="orders-title">All Orders Placed on  Dispute ( {{$disputeCount}})</h2>
+            <h2 class="orders-title">All Completed Orders( {{$finishedCount}})</h2>
         </div>
         <div class="orders-table">
             <div class="orders-search">
@@ -156,7 +156,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($dispute as $onprogress)
+                @foreach($completed as $onprogress)
                     <tr>
                         <td class="orders-table-data">
                             <span class="orders-table-data-revision">{{$onprogress->assignmentType}}</span>

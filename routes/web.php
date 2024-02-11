@@ -34,6 +34,7 @@ Route::get('/new_files/{id}',[App\Http\Controllers\HomeController::class, 'new_f
 Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
 Route::get('/order_details/{id}', [App\Http\Controllers\HomeController::class, 'order_details'])->name('order_details');
 Route::get('/assignOrders', [App\Http\Controllers\HomeController::class, 'AssignOrdera'])->name('AssignOrders');
+Route::get('/orders/{OrderId}', [App\Http\Controllers\HomeController::class, 'AssignedOrder'])->name('assignedOrders');
 
 //post new order
 Route::post('/orders', [App\Http\Controllers\DataController::class, 'orders'])->name('orders');
