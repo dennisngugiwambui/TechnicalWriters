@@ -57,7 +57,15 @@
                         <span class="badge">{{$disputeCount}}</span>
                     </a>
                 </li>
-                <li><a href="/finished"><i class="fa fa-comment"></i> <span>Finished</span></a></li>
+                <li>
+                    <a href="/finished">
+                        <i class="fa fa-comment">
+
+                        </i>
+                        <span>Finished</span>
+                        <span class="badge">{{$finishedCount}}</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="/bids">
@@ -70,7 +78,16 @@
                 <li><a href="/messages"><i class="fa fa-users"></i> <span>Messages</span></a></li>
                 <li><a href="/finance"><i class="fa fa-users"></i> <span>Finance</span></a></li>
                 <li><a href="/dashboard"><i class="fa fa-users"></i> <span>Profile</span></a></li>
-                <li><a href="/tenants"><i class="fa fa-lock"></i> <span>Logout</span></a></li>
+                <li>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fa fa-lock"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </ul>
         </nav>
 

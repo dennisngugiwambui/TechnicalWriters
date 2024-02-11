@@ -1,4 +1,4 @@
-@extends('Writers.app')
+@extends('Admin.app')
 
 @section('content')
 
@@ -164,25 +164,12 @@
                         <td class="orders-table-data">{{$order->deadline}}</td>
                         <td class="orders-table-data">{{$order->cpp}}</td>
                         <td class="orders-table-data">
-                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$order->id}}';"></i>
+                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/order/{{$order->OrderId}}';"></i>
                             <i class="fa fa-trash fa-lg" style="color: red; cursor: pointer;" onclick="deleteOrder('Order#12346')"></i>
                         </td>
 
                     </tr>
                 @endforeach
-                <tr>
-                    <td class="orders-table-data">
-                        <span class="orders-table-data-revision">Revision</span>
-                        <br>
-                        <span class="orders-table-data-order-id">Order#12345</span>
-                    </td>
-                    <td class="orders-table-data">Programming C</td>
-                    <td class="orders-table-data">Computer science</td>
-                    <td class="orders-table-data">-</td>
-                    <td class="orders-table-data">2023-11-21</td>
-                    <td class="orders-table-data">15</td>
-                    <td class="orders-table-data">$12.77</td>
-                </tr>
                 </tbody>
             </table>
         </div>

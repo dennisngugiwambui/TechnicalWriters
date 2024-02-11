@@ -105,11 +105,6 @@
                 <label for="floatingTextarea2">Comments</label>
             </div>
 
-            <div class="form-group">
-                <label for="files">Additional Files</label>
-                <input type="file" class="form-control" id="base64File" name="files">
-            </div>
-
 
 
             <button type="submit" class="btn btn-submit">Submit Order</button>

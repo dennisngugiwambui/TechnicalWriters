@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Writers.index');
+    return view('Auth.login');
 });
 
 Auth::routes();
 
 Route::get('/available', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('index');
 
 Route::get('/bids', [App\Http\Controllers\HomeController::class, 'Bids'])->name('bids');
 Route::get('/revision', [App\Http\Controllers\HomeController::class, 'revision'])->name('revision');
@@ -27,10 +28,12 @@ Route::get('/dispute', [App\Http\Controllers\HomeController::class, 'Dispute'])-
 Route::get('/current', [App\Http\Controllers\HomeController::class, 'current'])->name('current');
 Route::get('/finished', [App\Http\Controllers\HomeController::class, 'Finished'])->name('finished');
 Route::get('/order/{OrderId}', [App\Http\Controllers\HomeController::class, 'order'])->name('order');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/new_order',[App\Http\Controllers\HomeController::class, 'new_order']);
 Route::get('/new_files/{id}',[App\Http\Controllers\HomeController::class, 'new_files'])->name('new_files');
 Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
 Route::get('/order_details/{id}', [App\Http\Controllers\HomeController::class, 'order_details'])->name('order_details');
+Route::get('/assignOrders', [App\Http\Controllers\HomeController::class, 'AssignOrdera'])->name('AssignOrders');
 
 //post new order
 Route::post('/orders', [App\Http\Controllers\DataController::class, 'orders'])->name('orders');

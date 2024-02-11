@@ -57,14 +57,16 @@
                 <li>
                     <a href="/bids">
                         <i class="fa fa-file-archive-o"></i>
-                        <span>My Bids</span>
-                        <span class="badge">5</span>
+                        <span>All Bids</span>
+                        <span class="badge">{{$bidCount}}</span>
                     </a>
                 </li>
 
+                <li><a href="/assignOrders"><i class="fa fa-users"></i> <span>Assign Orders</span></a></li>
+
                 <li><a href="/tenants"><i class="fa fa-users"></i> <span>Messages</span></a></li>
                 <li><a href="/tenants"><i class="fa fa-users"></i> <span>Finance</span></a></li>
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Profile</span></a></li>
+                <li><a href="/dashboard"><i class="fa fa-users"></i> <span>Profile</span></a></li>
                 <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
                 <li><a href="/tenants"><i class="fa fa-lock"></i> <span>Logout</span></a></li>
             </ul>

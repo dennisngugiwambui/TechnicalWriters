@@ -6,6 +6,7 @@ use App\Models\Available;
 use App\Models\Bid;
 use App\Models\Files;
 use App\Models\Message;
+use App\Models\MyOrder;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,6 +126,7 @@ class DataController extends Controller
         // Find the available order by ID
         $order = Order::findOrFail($request->id);
         $bidder = auth()->user();
+        $available=Available::where('OrderId', $order->id)->get();
 
         // Check if the user has already applied for this order
         $existingBid = Bid::where('OrderId', $order->id)
@@ -133,9 +135,12 @@ class DataController extends Controller
 
         // If the user has already applied for the order, return an error message
         if ($existingBid) {
+            Alert::error('error!', 'You have already applied for this order')->persistent();
             return redirect()->back()->with('error', 'You have already applied for this order');
         }
 
+
+        $uncompletedOrders = MyOrder::where('writer_id', $bidder->id)->where('status', 'current')->count();
         // Create a new bid instance
         $bid = new Bid();
 
@@ -167,12 +172,13 @@ class DataController extends Controller
             // If no files, set a default value (e.g., "No files")
             $bid->files = "No files";
         }
-        $bid->ucompleted_orders=0;
+        $bid->ucompleted_orders=$uncompletedOrders;
 
         // Save the bid
+        //dd($bid);
         $bid->save();
 
-        $order->status='hidden';
+        $available->status='hidden';
         $order->update();
 
         Toastr::success('bid placed successfully', 'success');
