@@ -228,8 +228,7 @@ class DataController extends Controller
 
             // Delete the order record
           // $order->delete();
-            $order->status='hidden';
-            $order->update();
+            $order->update(['status' => 'assigned']);
 
             DB::commit();
 

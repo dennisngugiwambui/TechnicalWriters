@@ -390,13 +390,11 @@
 
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #{{$order->id}}   Assigned Writer</p>
+            <p><span>Order</span> #{{$order->OrderId}}   Assigned Writer  <span class="status">{{$order->status}}</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
 
-        <div class="orders-filters">
-            <span>{{$order->status}}</span>
-        </div>
+
 
         <div class="order-tabs">
             <ul>

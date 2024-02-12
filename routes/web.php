@@ -45,7 +45,7 @@ Route::post('/available/{id}',[App\Http\Controllers\DataController::class, 'avai
 Route::post('/changeUser/{id}',[App\Http\Controllers\SupportController::class, 'changeUser'])->name('changeUser');
 Route::post('/deleteUser/{id}',[App\Http\Controllers\SupportController::class, 'deleteUser'])->name('deleteUser');
 Route::post('/send_messages/{id}', [App\Http\Controllers\DataController::class, 'Messages'])->name('Messages');
-Route::post('/ReviseOrder', [App\Http\Controllers\SupportController::class, 'ReviseOrder'])->name('ReviseOrder');
+Route::post('/ReviseOrder/{id}', [App\Http\Controllers\SupportController::class, 'ReviseOrder'])->name('ReviseOrder');
 Route::get('/setOrders/{OrderId}', [App\Http\Controllers\SupportController::class, 'AssignOrders'])->name('AssignOrders');
 Route::post('/ChangeStatus/{id}', [App\Http\Controllers\SupportController::class, 'ChangeStatus'])->name('ChangeStatus');
 

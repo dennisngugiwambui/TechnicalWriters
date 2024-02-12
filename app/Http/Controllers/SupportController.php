@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AfricasTalking\SDK\AfricasTalking;
 use App\Models\Available;
 use App\Models\Bid;
 use App\Models\MyOrder;
@@ -53,31 +54,34 @@ class SupportController extends Controller
 
     }
 
-    public function ReviseOrder(Request $request)
+    public function ReviseOrder(Request $request, $id)
     {
-        $order = Order::with(['available', 'bids', 'myOrder', 'messages'])->find($request->OrderId);
-
-        if ($order) {
-            // Update the status to "revision" in the MyOrder model
-            MyOrder::where('OrderId', $order->id)->update(['status' => 'revision']);
-
-            // You can redirect or return a response as needed
-            Alert::success('success', 'order placed back to revision');
-            return redirect()->back()->with('success', 'Order revised successfully.');
-        } else {
-            // Handle the case when the order is not found
-            // You might want to redirect or display an error message
-            Alert::error('error!','no such order found');
-            return redirect()->back()->with('error', 'Order not found.');
+        try {
+            $orders = Order::find($id);
+            $revise = MyOrder::where('OrderId', $orders->id)->get();
+            return response()->json($revise);
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur during the process
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()]);
         }
-
     }
+
 
     public function AssignOrders(Request $request)
     {
         try {
             $bid = Bid::where('OrderId', $request->OrderId)->first();
             $available=Available::where('OrderId', $request->OrderId)->get();
+            $user = auth()->user();
+
+            // Check if the order has already been assigned
+            $existingOrder = MyOrder::where('OrderId', $request->OrderId)->first();
+
+            if ($existingOrder) {
+                Alert::error('error!', 'Order is already assigned')->persistent();
+                return redirect()->back()->with('error', 'Order is already assigned');
+            }
+
 
 
             $data=new MyOrder();
@@ -101,9 +105,6 @@ class SupportController extends Controller
 
             $data->save();
 
-            // Update status in MyOrder
-            //$data->status = 'assigned';
-            // Update status in Bid model
             $bid->update(['status' => 'assigned']);
 
             // Update status in Available model
@@ -112,32 +113,46 @@ class SupportController extends Controller
                 $entry->save();
             }
 
-//            dd($bid);
 
+            // Update status to 'unavailable' for other writers who had applied
+            Bid::where('OrderId', $request->OrderId)
+                ->where('writer_id', '!=', $bid->writer_id)
+                ->update(['status' => 'unavailable']);
 
-            // Update status in Available model
-//            foreach ($available as $entry) {
-//                $entry->status = 'assigned';
-//                $entry->save();
-//            }
 
 
             Alert::success('success', 'order assigned to this writer');
 
             return redirect()->back()->with('success', 'order assigned successfully');
 
-
-            //
-
-
         }catch (\Exception $e) {
-            // Handle any exceptions that occur during the process
-            // You might want to log the error or display a proper error message
             Alert::error('error!', $e->getMessage())->persistent();
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
 
     }
+
+
+    public function sendSms(string $number, string $message)
+    {
+        $username = 'dennohosi';
+        $apiKey   =  getenv('AT_API_KEY');
+        $AT       = new AfricasTalking($username, $apiKey);
+
+
+        // Get one of the services
+        $sms      = $AT->sms();
+
+
+        // Use the service
+        $result   = $sms->send([
+            'to'      => $number,
+            'message' => $message,
+        ]);
+
+
+    }
+
 
     public function ChangeStatus(Request $request)
     {
@@ -152,12 +167,13 @@ class SupportController extends Controller
             }
 
             // Update the status based on user selection
+            // Update the status based on user selection
             if ($request->usertype == 'reassign') {
                 // If reassign is selected, update Bid status to 'bid' and Available status to 'visible'
-                $bid = Bid::where('OrderId', $request->id)->first();
+                $bids = Bid::where('OrderId', $request->id)->get();
                 $available = Available::where('OrderId', $request->id)->first();
 
-                if ($bid) {
+                foreach ($bids as $bid) {
                     $bid->update(['status' => 'bid']);
                 }
 
@@ -169,6 +185,7 @@ class SupportController extends Controller
             // Update MyOrder status
             $order->status = $request->usertype;
             $order->update();
+             //return response()->json($bid);
 
             // Display success message
             Alert::success('Success', 'Order status changed successfully');
@@ -182,5 +199,8 @@ class SupportController extends Controller
         }
 
     }
+
+
+
 
 }

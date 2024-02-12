@@ -138,8 +138,8 @@
                 <h2 class="orders-title">Available Bids</h2>
             </div>
             <div class="orders-table">
-                @foreach($bidsGroupedByOrderId as $item)
-                    <p>Bids for order {{$item['order_id']}}</p>
+                @foreach($bidsGroupedByOrderId as $orderId => $bids)
+                    <p>Bids for order {{$orderId}}</p>
                     <table class="orders-table-content">
                         <thead>
                         <tr>
@@ -153,26 +153,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($item['bids'] as $bid)
+                        @foreach($bids as $bid)
                             <tr>
-                                <td class="orders-table-data">{{$bid->first()->OrderId}}</td>
-                                <td class="orders-table-data">{{$bid->first()->writer_id}}</td>
-                                <td class="orders-table-data">{{$bid->first()->ucompleted_orders}}</td>
-                                <td class="orders-table-data">{{$bid->first()->writer_phone}}</td>
-                                <td class="orders-table-data">{{$bid->first()->deadline}}</td>
-                                <td class="orders-table-data">{{$bid->first()->assignmentType}}</td>
+                                <td class="orders-table-data">{{$bid->OrderId}}</td>
+                                <td class="orders-table-data">{{$bid->writer_id}}</td>
+                                <td class="orders-table-data">{{$bid->ucompleted_orders}}</td>
+                                <td class="orders-table-data">{{$bid->writer_phone}}</td>
+                                <td class="orders-table-data">{{$bid->deadline}}</td>
+                                <td class="orders-table-data">{{$bid->assignmentType}}</td>
                                 <td class="orders-table-data">
-                                    <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/setOrders/{{$bid->first()->OrderId}}';">Assign</i>
+                                    <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" onclick="window.location.href='/setOrders/{{$bid->OrderId}}';">Assign</i>
                                 </td>
-
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 @endforeach
             </div>
-
         </section>
+
 
 
 

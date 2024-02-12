@@ -389,8 +389,8 @@
 
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #549829806 <span class="status">Available</span></p>
-            <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
+            <p><span>Order</span> #{{$order->id}} <span class="status">{{$orders->status}}</span></p>
+            <p><strong>ks. {{$order->price}} </strong> - New customer - 12:37 AM</p>
         </div>
 
         <div class="orders-filters">
@@ -416,7 +416,7 @@
                                 <p>Are you sure you want to complete this order?</p>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Complete</button>
                                 </div>
                             </form>
                         </div>
@@ -432,18 +432,19 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Order</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Revise Order</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="post">
+                            <form action="{{ route('ReviseOrder', ['id' => $order->id]) }}" method="post">
                                 @csrf
-                                <p>Are you sure you want place this order to Revision?</p>
+                                <p>Are you sure you want to place this order in Revision?</p>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Revision</button>
                                 </div>
                             </form>
+
                         </div>
 
                     </div>
@@ -458,7 +459,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Order</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Refund Order</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -467,7 +468,7 @@
                                 <p>Are you sure you want to apply a refund on this order?</p>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Refund</button>
                                 </div>
                             </form>
                         </div>

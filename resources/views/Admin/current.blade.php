@@ -237,12 +237,12 @@
                         <td class="orders-table-data">{{$onprogress->deadline}}</td>
                         <td class="orders-table-data">{{$onprogress->cpp}}</td>
                         <td class="orders-table-data">
-                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$onprogress->id}}"></i>
-
+                            <i class="fa fa-edit fa-lg" style="color: blue; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$onprogress->OrderId}}"></i>
+                            <i class="fa fa-eye fa-lg" style="color: red; cursor: pointer;" onclick="window.location.href='/orders/{{$onprogress->OrderId}}';" ></i>
 
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal_{{$onprogress->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal_{{$onprogress->OrderId}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -250,8 +250,8 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route('ChangeStatus', ['id'=>$onprogress->OrderId])}}" method="post" enctype="multipart/form-data">
-                                                @csrf
+                                            <form action="{{ route('ChangeStatus', ['id' => $onprogress->OrderId]) }}" method="post" enctype="multipart/form-data">
+                                            @csrf
 
                                                 <div class="mb-3 row">
                                                     <label for="inputPassword" class="col-sm-2 col-form-label">Order Status</label>
