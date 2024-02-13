@@ -314,6 +314,56 @@ class DataController extends Controller
 
     }
 
+    public function GeneralMessage(Request $request)
+    {
+        try {
+            //$order=Order::find($request->id);
+            // Capture sender information
+            $senderId = Auth::id();
+            $senderName = Auth::user()->name;
+            $senderUserType = Auth::user()->usertype;
+            $senderPhone = Auth::user()->phone;
+            $senderEmail= Auth::user()->email;
+
+
+
+            // Get recipient, order ID, and message from the request
+            $recipient = $request->recipient;
+            $orderId= $request->subject;
+            //$orderId = $order->id;
+            $messageContent = $request->input('message');
+
+            // Create a new Message instance
+            $message = new Message([
+                'OrderId'=>$orderId,
+                'from' => $senderName,
+                'from_phone' => $senderPhone,
+                'from_email' => $senderEmail,
+                'to' => $recipient,
+                'to_email' => 'N/A',
+                'to_phone' => 'N/A',
+                'title' => 'New Message',
+                'date' => now()->format('jS F Y h:ia'),
+                'message' => $messageContent,
+            ]);
+
+            // Save the message
+            $message->save();
+
+            // dd($message);
+
+            // Optionally, you can return a response or redirect as needed
+            // return response()->json($message);
+
+            return redirect()->back()->with('success', 'message sent successfully');
+        }catch (\Exception $e) {
+
+            Alert::success('success', $e->getMessage())->persistent();
+
+            return redirect()->back()->with('error!', 'Message insertion error');
+        }
+    }
+
 
 
 }

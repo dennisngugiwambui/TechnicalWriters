@@ -35,6 +35,9 @@ Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->nam
 Route::get('/order_details/{id}', [App\Http\Controllers\HomeController::class, 'order_details'])->name('order_details');
 Route::get('/assignOrders', [App\Http\Controllers\HomeController::class, 'AssignOrdera'])->name('AssignOrders');
 Route::get('/orders/{OrderId}', [App\Http\Controllers\HomeController::class, 'AssignedOrder'])->name('assignedOrders');
+Route::get('/messages', [App\Http\Controllers\HomeController::class, 'Messages'])->name('Messages');
+
+
 
 //post new order
 Route::post('/orders', [App\Http\Controllers\DataController::class, 'orders'])->name('orders');
@@ -48,4 +51,6 @@ Route::post('/send_messages/{id}', [App\Http\Controllers\DataController::class, 
 Route::post('/ReviseOrder/{id}', [App\Http\Controllers\SupportController::class, 'ReviseOrder'])->name('ReviseOrder');
 Route::get('/setOrders/{OrderId}', [App\Http\Controllers\SupportController::class, 'AssignOrders'])->name('AssignOrders');
 Route::post('/ChangeStatus/{id}', [App\Http\Controllers\SupportController::class, 'ChangeStatus'])->name('ChangeStatus');
+Route::post('/SendGeneralMessage', [App\Http\Controllers\DataController::class, 'GeneralMessage'])->name('GeneralMessage');
+
 

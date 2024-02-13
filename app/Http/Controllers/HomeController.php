@@ -566,4 +566,63 @@ class HomeController extends Controller
             return view('auth.login');
         }
     }
+
+    public function Messages(Request $request)
+    {
+        if (Auth::id()) {
+            $usertype = Auth::user()->usertype;
+            $assignedOrder = MyOrder::where('OrderId', $request->id)->first();
+
+            if ($usertype === 'writer') {
+                $order = Order::with(['available', 'bids', 'myOrder', 'messages'])
+                    ->find($request->OrderId);
+
+
+                    $available = Available::where('status', 'visible')->count();
+                    $current = MyOrder::where('status', 'current')->count();
+
+                    $bidder = auth()->user();
+                    $bidCount = Bid::where('writer_id', $bidder->id)->count();
+
+
+                $authUser = auth()->user();
+
+                $messages = Message::where(function ($query) use ($authUser) {
+                        $query->where('from', $authUser->name)
+                            ->orWhere('to', $authUser->name);
+                    })
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                    $disputeCount = MyOrder::whereIn('status', ['dispute'])->count();
+                    $myrevision = MyOrder::where('writer_id', $bidder->id)->where('status', 'revision')->count();
+                    $finishedCount = MyOrder::where('writer_id', $bidder->id)->where('status', 'finished')->count();
+
+                    return view('Writers.Messages', compact('order', 'available', 'current', 'bidCount', 'bidCount', 'messages', 'disputeCount', 'myrevision', 'finishedCount'));
+            }else if ($usertype == 'admin') {
+                //$order=MyOrder::where('status', 'current')->get();
+                $getOrder = Order::find($request->id);
+                $messages = Message::where('orderId', $request->OrderId)->orderBy('created_at', 'desc')->get();
+                $available = Available::where('status', 'visible')->count();
+                //$bidCount = Bid::where('writer_id', $bidder->id)->count();
+                $writer = auth()->user();
+                $bidCount = Bid::where('writer_id', $writer->id)->count();
+                $current = MyOrder::where('status', 'current')->count();
+                $orders = MyOrder::where('status', 'current')->where('OrderId', $request->id)->get();
+                $disputeCount = MyOrder::where('writer_id', $writer->id)->whereIn('status', ['dispute'])->count();
+                $myrevision = MyOrder::where('writer_id', $writer->id)->where('status', 'revision')->count();
+                $finishedCount = MyOrder::where('status', 'finished')->count();
+                $order = Order::with(['available', 'bids', 'myOrder', 'messages'])
+                    ->find($request->OrderId);
+
+
+                return view('Admin.Messages', compact('assignedOrder', 'available', 'current', 'myrevision', 'finishedCount', 'disputeCount', 'bidCount', 'messages', 'order', 'orders'));
+
+            }else if ($usertype === 'pending') {
+                return view('pending');
+            }
+        }else {
+            return view('auth.login');
+        }
+
+    }
 }
