@@ -625,4 +625,23 @@ class HomeController extends Controller
         }
 
     }
+
+    public function Payment(Request $request)
+    {
+
+
+        $available = Available::where('status', 'visible')->count();
+        //$bidCount = Bid::where('writer_id', $bidder->id)->count();
+        $writer = auth()->user();
+        $bidCount = Bid::where('writer_id', $writer->id)->count();
+        $current = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->count();
+        $disputeCount = MyOrder::where('writer_id', $writer->id)->whereIn('status', ['dispute'])->count();
+        $myrevision = MyOrder::where('writer_id', $writer->id)->where('status', 'revision')->count();
+        $finishedCount = MyOrder::where('writer_id', $writer->id)->where('status', 'finished')->count();
+        //$completedOrders= MyOrder::where('writer_id', $writer->id)->where('status', 'finished')->count();
+        $messages = Message::where('orderId', $request->OrderId)->orderBy('created_at', 'desc')->get();
+
+        return view('Writers.Payment', compact( 'available', 'current', 'myrevision', 'finishedCount', 'disputeCount', 'bidCount', 'messages'));
+
+    }
 }

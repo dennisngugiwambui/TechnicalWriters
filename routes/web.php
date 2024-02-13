@@ -36,6 +36,7 @@ Route::get('/order_details/{id}', [App\Http\Controllers\HomeController::class, '
 Route::get('/assignOrders', [App\Http\Controllers\HomeController::class, 'AssignOrdera'])->name('AssignOrders');
 Route::get('/orders/{OrderId}', [App\Http\Controllers\HomeController::class, 'AssignedOrder'])->name('assignedOrders');
 Route::get('/messages', [App\Http\Controllers\HomeController::class, 'Messages'])->name('Messages');
+Route::get('/finance', [App\Http\Controllers\HomeController::class, 'Payment'])->name('Payment');
 
 
 

@@ -138,7 +138,7 @@
             <h2 class="orders-title">Writer Assigned orders ({{$assignedCount}})</h2>
         </div>
         <div class="orders-table">
-            <table class="orders-table-content">
+            <table class="orders-table-content table-responsive">
                 <thead>
                 <tr>
                     <th class="orders-table-header">ORDER ID</th>
@@ -178,7 +178,7 @@
             <h2 class="orders-title">Done, Delivered Orders ({{$deliveredCount}})</h2>
         </div>
         <div class="orders-table">
-            <table class="orders-table-content">
+            <table class="orders-table-content table-responsive">
                 <thead>
                 <tr>
                     <th class="orders-table-header">ORDER ID</th>

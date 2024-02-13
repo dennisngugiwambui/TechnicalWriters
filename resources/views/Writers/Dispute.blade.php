@@ -138,7 +138,7 @@
             <h2 class="orders-title">Orders on dispute status ({{$disputeCount}})</h2>
         </div>
         <div class="orders-table">
-            <table class="orders-table-content">
+            <table class="orders-table-content table-responsive">
                 <thead>
                 <tr>
                     <th class="orders-table-header">ORDER ID</th>
