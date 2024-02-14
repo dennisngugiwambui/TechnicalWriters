@@ -389,7 +389,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #{{$order->id}} <span class="status">{{$orders->status}}</span></p>
+            <p><span>Order</span> #{{$order->OrderId}} <span class="status">{{$order->status}}</span></p>
             <p><strong>ks. {{$order->price}} </strong> - New customer - 12:37 AM</p>
         </div>
 
@@ -436,8 +436,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('ReviseOrder', ['id' => $order->id]) }}" method="post">
-                                @csrf
+                            <form action="{{ route('ReviseOrder', ['id' => $order->OrderId ?? null]) }}" method="post">
+
+                            @csrf
                                 <p>Are you sure you want to place this order in Revision?</p>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -497,20 +498,19 @@
             <div class="materials">
                 <!-- Content for Instructions tab goes here -->
                 <div class="left_side card" style="font-size: 20px; line-height: 1.5;">
-                    <p>Price: <strong>Ksh.8000</strong></p>
-                    <p>Deadline <strong style="color: red;">27hrs</strong></p>
+                    <p>Price: <strong>Ksh.{{$order->price}}</strong></p>
+                    <p>Deadline <strong style="color: red;">{{$order->deadline}}</strong></p>
                     <p>Task Size Large</p>
-                    <p>Type of Service: Programming</p>
-                    <p>Discipline: Web programming</p>
-                    <p>Programming Language: Javascript</p>
+                    <p>Type of Service: {{$order->typeOfService}}</p>
+                    <p>Discipline: {{$order->discipline}}</p>
+                    <p>CPP: {{$order->cpp}}</p>
                 </div>
 
 
                 <div class="right_side card">
                     <h3>Paper Instructions</h3>
-                    <p>Maize is a versatile crop that can grow in different varieties of soil, water, and climatic conditions. The crop has a wide range of tolerance to temperature conditions but grows well in warm regions where moisture is sufficient. The crop flourishes in regions with rainfall ranging from 1200mm to 2500mm but can adapt to regions receiving rainfall of up to 400 mm. The crop requires warm temperatures of between 15°C and 30 °C and thrives in a range of zones with altitudes ranging from 100 m to 2900 m ASL, depending on the variety.
-
-                        The crop is sensitive to moisture stress around tasseling time and during cob formation. Growth is favorable under a pH ranging from 5-8 with 5.5-7 being optimal because it is sensitive to salinity.
+                    <p>
+                        {{$order->comments}}
                     </p>
                 </div>
             </div>

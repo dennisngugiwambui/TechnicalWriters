@@ -64,8 +64,8 @@
 
                 <li><a href="/assignOrders"><i class="fa fa-users"></i> <span>Assign Orders</span></a></li>
 
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Messages</span></a></li>
-                <li><a href="/tenants"><i class="fa fa-users"></i> <span>Finance</span></a></li>
+                <li><a href="/messages"><i class="fa fa-users"></i> <span>Messages</span></a></li>
+                <li><a href="/finance"><i class="fa fa-users"></i> <span>Finance</span></a></li>
                 <li><a href="/dashboard"><i class="fa fa-users"></i> <span>Profile</span></a></li>
                 <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
                 <li><a href="/tenants"><i class="fa fa-lock"></i> <span>Logout</span></a></li>

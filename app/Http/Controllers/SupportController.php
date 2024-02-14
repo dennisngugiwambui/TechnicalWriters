@@ -54,10 +54,10 @@ class SupportController extends Controller
 
     }
 
-    public function ReviseOrder(Request $request, $id)
+    public function ReviseOrder(Request $request)
     {
         try {
-            $orders = Order::find($id);
+            $orders = Order::find($request->id);
             $revise = MyOrder::where('OrderId', $orders->id)->get();
             return response()->json($revise);
         } catch (\Exception $e) {
