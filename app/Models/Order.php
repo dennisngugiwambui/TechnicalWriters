@@ -9,6 +9,26 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'OrderId',
+        'assignmentType',
+        'typeOfService',
+        'topicTitle',
+        'discipline',
+        'pages',
+        'deadline',
+        'cpp',
+        'price',
+        'comments',
+        'files',
+        'writer_id',
+        'writer_name',
+        'writer_phone',
+        'status',
+
+
+    ];
+
     public function available()
     {
         return $this->hasOne(Available::class, 'OrderId');

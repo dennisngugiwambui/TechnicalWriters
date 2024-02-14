@@ -144,7 +144,7 @@
 
         </div>
         <div class="orders-table">
-            <table class="orders-table-content table-responsive">
+            <table class="orders-table-content">
                 <thead>
                 <tr >
                         <th class="orders-table-header ">ORDER ID</th>
