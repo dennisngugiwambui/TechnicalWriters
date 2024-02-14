@@ -417,143 +417,166 @@
             </ul>
         </div>
 
-
         <style>
-            /* CSS Styles for Fancy Payment Cards and Total Card */
-            .payment-table-container {
-                width: 100%;
-                overflow-x: auto;
-            }
-
-            .payment-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
-            }
-
-            .payment-table th,
-            .payment-table td {
-                padding: 10px;
-                border: 1px solid #ddd;
-                text-align: left;
-            }
-
-            .payment-table th {
-                background-color: #f2f2f2;
-            }
-
-            .total-card {
-                width: 100%;
-                border-radius: 8px;
+            .orders {
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                overflow: hidden;
-                transition: box-shadow 0.3s ease;
                 margin-bottom: 20px;
             }
 
-            .total-card:hover {
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            .orders-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
             }
 
-            .card-content {
-                padding: 16px;
-            }
-
-            .card-content p {
-                margin-bottom: 10px;
-            }
-
-            .card-label {
+            .orders-title {
+                font-size: 24px;
                 margin: 0;
             }
 
-            .large-font {
-                font-size: 24px;
+            .orders-info {
+                color: #6c757d;
+                margin: 0;
             }
 
-            .bold-text {
+            .orders-filters {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .orders-filters-list {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+            }
+
+            .orders-filters-item {
+                cursor: pointer;
+                padding: 10px;
+                border-radius: 5px;
+                margin-right: 10px;
+                background-color: #fff;
+                color: #495057;
+            }
+
+            .orders-filters-item.is-active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .orders-filters-select {
+                margin-left: auto;
+                margin-right: 10px;
+            }
+
+            .orders-filters-select-input {
+                padding: 8px;
+                border-radius: 5px;
+                border: 1px solid #ced4da;
+            }
+
+            .orders-table {
+                overflow: auto;
+            }
+
+            .orders-table-content {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .orders-table-header {
+                padding: 15px;
+                text-align: left;
+                background-color: #063045;
+                color: #fff;
                 font-weight: bold;
             }
 
-            .small-font {
-                font-size: 14px;
-                color: #555;
+            .orders-table-data {
+                padding: 15px;
+                text-align: left;
+                background-color: #fff;
+                color: #000;
+                font-size: 14px; /* Set font size */
+                position: relative; /* Add position relative */
             }
+            .orders-table-data::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 5px; /* Adjust height for the shadow size */
+                background: rgba(0, 0, 0, 0.1); /* Adjust shadow color and opacity */
+            }
+
+            tbody tr:not(:last-child) {
+                margin-bottom: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            orders-table-data-revision {
+                font-size: 14px;
+                font-weight: normal;
+                font-size: 12px;
+            }
+
+            .orders-table-data-order-id {
+                font-size: 18px; /* Adjust font size for Order ID */
+                font-weight: normal;
+                font-size: 12px;
+            }
+            .orders-info {
+                background-color: #640604; /* Set background color */
+                color: #fff; /* Set text color */
+                padding: 10px; /* Add padding for better spacing */
+                border-radius: 5px; /* Add border radius for rounded corners */
+                display: inline-block; /* Ensure the background color wraps around the text */
+                margin-top: 10px; /* Add margin for better spacing */
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add box shadow for depth */
+            }
+
         </style>
 
-        <!-- Tab contents -->
-        <div id="instructions" class="tab-content active-tab-content">
-            <div class="materials">
-                <!-- Payment Table -->
-                <div class="payment-table-container">
-                    <table class="payment-table">
-                        <thead>
-                        <tr>
-                            <th>PAYMENT DATE</th>
-                            <th>COMPANY NAME</th>
-                            <th>REQUEST NUMBER</th>
-                            <th>AMOUNT</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>17 Jan 2024</td>
-                            <td>WRITERA LIMITED</td>
-                            <td>OL-02580</td>
-                            <td>$133.00</td>
-                        </tr>
-                        <tr>
-                            <td>4 Jan 2024</td>
-                            <td>WRITERA LIMITED</td>
-                            <td>QP-06694</td>
-                            <td>$140.05</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Total Card -->
-                <div class="total-card">
-                    <div class="card-content">
-                        <p class="large-font bold-text">completed Orders</p>
-                        <p class="large-font bold-text total-amount">$173.00</p>
-                        <p class="small-font">Total</p>
-                    </div>
-                </div>
+        <section class="orders">
+            <div class="orders-header">
+                <h2 class="orders-title">Available Bids</h2>
             </div>
-        </div>
-
-
-
-        <!-- Tab contents -->
-        <div id="instructions" class="tab-content active-tab-content">
-            <div class="materials">
-                <!-- Payment Table -->
-                <div class="payment-table-container">
-                    <table class="payment-table">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Order ID</th>
-                            <th>Transaction Type</th>
-                            <th>Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td>2024-02-12</td>
-                            <td>1000</td>
-                            <td>Deposit</td>
-                            <td class="positive">+$500.00</td>
-                        </tr>
-                        <!-- Add more rows dynamically using JavaScript or populate from backend -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="orders-table">
+                <table class="orders-table-content">
+                    <thead>
+                    <tr>
+                        <th class="orders-table-header">PAYMENT DATE</th>
+                        <th class="orders-table-header">COMPANY NAME</th>
+                        <th class="orders-table-header">REQUEST NUMBER</th>
+                        <th class="orders-table-header">AMOUNT</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="orders-table-data">2024-02-12</td>
+                        <td class="orders-table-data">1000</td>
+                        <td class="orders-table-data">Deposit</td>
+                        <td class="orders-table-data">+$500.00</td>
+                    </tr>
+                    <tr>
+                        <td class="orders-table-data">2024-02-12</td>
+                        <td class="orders-table-data">1000</td>
+                        <td class="orders-table-data">Deposit</td>
+                        <td class="orders-table-data">+$500.00</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </section>
+
 
 
         <div id="all-files" class="tab-content">

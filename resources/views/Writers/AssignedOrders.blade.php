@@ -390,7 +390,7 @@
 
     <section class="orders">
         <div class="orders-header">
-            <p><span>Order</span> #{{$order->OrderId}}   Assigned Writer  <span class="status">{{$order->status}}</span></p>
+            <p><span>Order</span> #{{$order->OrderId}}   Assigned Writer  <span class="status">current</span></p>
             <p><strong>ksh.8000 </strong> - New customer - 12:37 AM</p>
         </div>
 

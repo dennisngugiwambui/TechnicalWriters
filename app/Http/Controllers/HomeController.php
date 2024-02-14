@@ -484,26 +484,18 @@ class HomeController extends Controller
 
     }
 
-    public function AssignOrdera()
+    public function AssignOrdera(Request $request)
     {
         $orders = Order::with(['available', 'bids', 'myOrder', 'messages'])->get();
 
-//        $bidsGroupedByOrderId = $orders->map(function ($order) {
-//            return [
-//                'OrderId' => $order->id,
-//                'bids' => Bid::where('status', 'bid')->where('OrderId', $order->id)->get()->groupBy('OrderId'),
-//            ];
-//        });
-
         // Fetch bids with status 'bid'
         $bids = Bid::where('status', 'bid')->get();
+        $order = MyOrder::where('OrderId', $request->OrderId)->get();
 
         // Group bids by order ID
         $bidsGroupedByOrderId = $bids->groupBy('OrderId');
-        //$biddedOrder=Bid::where('status', 'bid')->groupBy('OrderId')->get();
 
         $available = Available::where('status', 'visible')->count();
-        //$bidCount = Bid::where('writer_id', $bidder->id)->count();
         $writer = auth()->user();
         $bidCount = Bid::where('writer_id', $writer->id)->count();
         $current = MyOrder::where('writer_id', $writer->id)->where('status', 'current')->count();
@@ -511,12 +503,9 @@ class HomeController extends Controller
         $myrevision = MyOrder::where('writer_id', $writer->id)->where('status', 'revision')->count();
         $finishedCount = MyOrder::where('status', 'finished')->count();
 
-       // return response()->json($bidsGroupedByOrderId);
-
-       // return response()->json($bidsGroupedByOrderId);
-
-        return view('Admin.AssignOrders', compact('bidsGroupedByOrderId', 'available', 'bidCount', 'myrevision', 'current', 'finishedCount', 'disputeCount'));
+        return view('Admin.AssignOrders', compact('bidsGroupedByOrderId', 'available', 'bidCount', 'myrevision', 'current', 'finishedCount', 'disputeCount', 'order'));
     }
+
 
     public function AssignedOrder(Request $request)
     {
