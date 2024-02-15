@@ -7,6 +7,7 @@ use App\Models\Available;
 use App\Models\Bid;
 use App\Models\MyOrder;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -197,6 +198,13 @@ class SupportController extends Controller
             Alert::error('Error!', $e->getMessage())->persistent();
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
+
+    }
+
+    public function AcceptPayment(Request $request)
+    {
+        $data= new Payment();
+
 
     }
 

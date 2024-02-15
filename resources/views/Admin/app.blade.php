@@ -6,6 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{asset('Admin/img/writer.png')}}">
     <link rel="shortcut icon" type="image/png" href="{{asset('Admin/assets/images/icon/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('Admin/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('Admin/assets/css/font-awesome.min.css')}}">
