@@ -205,6 +205,18 @@ class SupportController extends Controller
     {
         $data= new Payment();
 
+        $user=auth()->user();
+
+        $data=writer_id = $user->id;
+        $data=writer_phone = $user->phone;
+        $data=amount = $request->amount;
+        $data=transaction_date = $request->transaction_date;
+        $data=TransactionType = 'N/A';
+        $data=comments = 'N/A';
+        $data=paid_by = 'N/A';
+        $data=paid_date = 'N/A';
+        $data=status = 'N/A';
+
 
     }
 
