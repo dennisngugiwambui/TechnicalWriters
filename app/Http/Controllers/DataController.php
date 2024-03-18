@@ -383,6 +383,16 @@ class DataController extends Controller
         foreach ($orders as $order) {
             $orderIds[] = $order->OrderId; // Access the primary key 'id' to get the order ID
             $totalAmount += $order->price; // Assuming 'price' is the column name for the order price
+
+
+            // Check if the order is already requested
+            if ($order->status == 'requested') {
+                // If the order is already requested, return with an error message
+                return redirect()->back()->with("error", 'Order is already requested');
+            }
+
+            $order->status = 'requested';
+            $order->save();
         }
 
         if ($request->has('orderId')) { // Use camelCase 'orderId' for the input key
