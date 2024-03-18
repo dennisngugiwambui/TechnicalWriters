@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('writerEmail');
             $table->string('OrderIds');
             $table->string('amount');
-            $table->string('status');
+            $table->string('status')->default('requested');
             $table->string('processedDate');
 
             $table->timestamps();

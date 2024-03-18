@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 
@@ -398,9 +399,13 @@ class DataController extends Controller
         $payment->writerPhone = $writer->phone;
         $payment->orderIds = json_encode($orderIds); // Store the array of order IDs
         $payment->amount = $totalAmount;
+        $payment->processedDate = Carbon::now()->format('D, m, Y');
         $payment->save();
 
-        return response()->json(['success' => true]);
+        //Alert::success('success', 'paymentRequested Successfully')->persistent();
+
+        return  redirect()->back()->with("success", 'paymnent requested successfully');
+        //return response()->json($orders);
     }
 
 
