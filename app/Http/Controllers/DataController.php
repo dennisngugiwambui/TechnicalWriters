@@ -380,7 +380,7 @@ class DataController extends Controller
         $totalAmount = 0;
 
         foreach ($orders as $order) {
-            $orderIds[] = $order->id; // Access the primary key 'id' to get the order ID
+            $orderIds[] = $order->OrderId; // Access the primary key 'id' to get the order ID
             $totalAmount += $order->price; // Assuming 'price' is the column name for the order price
         }
 
@@ -396,7 +396,7 @@ class DataController extends Controller
         $payment->writerName = $writer->name;
         $payment->writerEmail = $writer->email;
         $payment->writerPhone = $writer->phone;
-        $payment->orderIds = $orderIds; // Store the array of order IDs
+        $payment->orderIds = json_encode($orderIds); // Store the array of order IDs
         $payment->amount = $totalAmount;
         $payment->save();
 
