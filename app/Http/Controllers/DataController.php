@@ -8,6 +8,8 @@ use App\Models\Files;
 use App\Models\Message;
 use App\Models\MyOrder;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\RequestPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+
 
 
 class DataController extends Controller
@@ -362,6 +365,42 @@ class DataController extends Controller
 
             return redirect()->back()->with('error!', 'Message insertion error');
         }
+    }
+
+    public function RequestPayment(Request $request)
+    {
+        $writer = auth()->user();
+
+        // Retrieve orders from MyOrder model where writerId matches the authenticated user's ID and status is 'finished'
+        $orders = MyOrder::where('writer_id', $writer->id)
+            ->where('status', 'finished')
+            ->get();
+
+        $orderIds = [];
+        $totalAmount = 0;
+
+        foreach ($orders as $order) {
+            $orderIds[] = $order->id; // Access the primary key 'id' to get the order ID
+            $totalAmount += $order->price; // Assuming 'price' is the column name for the order price
+        }
+
+        if ($request->has('orderId')) { // Use camelCase 'orderId' for the input key
+            $orderId = $request->input('orderId');
+            $clickedOrder = MyOrder::findOrFail($orderId);
+            $clickedOrder->status = 'requested';
+            $clickedOrder->save();
+        }
+
+        $payment = new RequestPayment();
+        $payment->writerId = $writer->id;
+        $payment->writerName = $writer->name;
+        $payment->writerEmail = $writer->email;
+        $payment->writerPhone = $writer->phone;
+        $payment->orderIds = $orderIds; // Store the array of order IDs
+        $payment->amount = $totalAmount;
+        $payment->save();
+
+        return response()->json(['success' => true]);
     }
 
 

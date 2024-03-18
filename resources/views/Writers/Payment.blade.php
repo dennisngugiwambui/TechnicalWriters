@@ -397,7 +397,11 @@
     <section class="orders">
         <div class="orders-header">
             <p><span>FINANCE</span>
-                <button class="buttone" onclick="checkDateAndDisable(this)">Request Payment</button>
+                <form method="POST" action="{{route('RequestPayment', ['id'=>auth()->user()->id])}}">
+                @csrf
+                <button class="buttone" >Request Payment</button>
+            </form>
+
             </p>
             <p>You can request payment twice a month from <strong>2nd day of the month</strong> and from <strong>17th</strong> day ((start-end at 3pm)</p>
         </div>
@@ -459,38 +463,6 @@
 
 
 
-        <script>
-        // Get the deadline timestamp from the HTML element
-        const deadline = new Date(document.getElementById('deadline').innerText).getTime();
-
-        // Update the countdown every second
-        const countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Function to calculate and update the countdown
-        function updateCountdown() {
-            // Get the current time
-            const currentTime = new Date().getTime();
-
-            // Calculate the time remaining in milliseconds
-            const timeRemaining = deadline - currentTime;
-
-            // Check if the deadline has passed
-            if (timeRemaining <= 0) {
-                clearInterval(countdownInterval); // Stop the countdown if deadline has passed
-                document.getElementById('timeRemaining').innerText = 'Deadline has passed';
-            } else {
-                // Convert milliseconds to hours and minutes
-                const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
-                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-
-                // Display the time remaining
-                document.getElementById('timeRemaining').innerText = `(${hours}hrs ${minutes}mins)`;
-            }
-        }
-
-        // Initial call to update countdown when the page loads
-        updateCountdown();
-    </script>
 
 
     <script>
@@ -500,29 +472,7 @@
         });
     </script>
 
-    <script>
-        // Assuming globalCalendar is a variable containing the current date information
-        // You may need to adjust the logic to get the current date from your global calendar
-        const globalCalendar = {
-            get currentDate() {
-                // Assuming this returns the current date
-                return new Date();
-            }
-        };
 
-        function checkDateAndDisable(button) {
-            const currentDate = globalCalendar.currentDate;
-            const dayOfMonth = currentDate.getDate();
-
-            // Check if the day is either 17 or 2
-            if (dayOfMonth !== 17 && dayOfMonth !== 2) {
-                button.disabled = true;
-            } else {
-                // Enable the button if the condition is met
-                button.disabled = false;
-            }
-        }
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />

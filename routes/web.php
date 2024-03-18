@@ -54,4 +54,6 @@ Route::get('/setOrders/{OrderId}', [App\Http\Controllers\SupportController::clas
 Route::post('/ChangeStatus/{id}', [App\Http\Controllers\SupportController::class, 'ChangeStatus'])->name('ChangeStatus');
 Route::post('/SendGeneralMessage', [App\Http\Controllers\DataController::class, 'GeneralMessage'])->name('GeneralMessage');
 
+Route::post('/RequestPayment/{id}', [App\Http\Controllers\DataController::class, 'RequestPayment'])->name('RequestPayment');
+
 
