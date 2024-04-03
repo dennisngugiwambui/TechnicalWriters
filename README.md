@@ -2,6 +2,8 @@
 
 ## About Technical writers
 
+This a writing system that can help anyone who wish to monitor their writers. 
+
 ##PAGES
 
 ![image](https://github.com/dennisngugiwambui/TechnicalWriters/assets/112067611/879270da-deb0-4422-b7b0-f9ef8974f901)
