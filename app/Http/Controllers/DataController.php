@@ -128,9 +128,23 @@ class DataController extends Controller
 
     public function showOrder($orderId)
     {
-        $order = Order::findOrFail($orderId);
-        $files = $order->files; // Assuming you have a relationship set up
-        return view('orders.show', compact('order', 'files'));
+        $order = Order::with('files')->findOrFail($orderId);
+        $files = $order->files->map(function ($file) {
+            return [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'file_type' => $file->file_type,
+                'file_path' => $file->file_path,
+                'uploaded_by' => $file->uploaded_by,
+                'created_at' => $file->created_at->format('d M, h:i A'),
+                'updated_at' => $file->updated_at->format('d M, h:i A'),
+            ];
+        });
+
+        return response()->json([
+            'order_id' => $order->id,
+            'files' => $files
+        ]);
     }
 
 

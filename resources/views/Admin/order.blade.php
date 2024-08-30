@@ -545,7 +545,7 @@
         </div>
 
 
-        
+
 
 
                 <!-- Styles for Modals -->
@@ -719,8 +719,7 @@
                     </div>
                 </div>
 
-                <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>
-                <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>
+
 
                 <script>
                     $(document).ready(function() {

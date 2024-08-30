@@ -56,4 +56,6 @@ Route::post('/SendGeneralMessage', [App\Http\Controllers\DataController::class, 
 
 Route::post('/RequestPayment/{id}', [App\Http\Controllers\DataController::class, 'RequestPayment'])->name('RequestPayment');
 
+Route::get('/orders/{orderId}/files', [App\Http\Controllers\DataController::class, 'showOrder'])->name('orders.files');
+
 
