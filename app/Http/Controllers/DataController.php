@@ -95,32 +95,34 @@ class DataController extends Controller
     public function files(Request $request)
     {
         try {
-            $files = new Files();
-            $order = Order::findOrFail($request->id); // Use findOrFail to handle null case
-            $id = $request->id;
+            $request->validate([
+                'id' => 'required|exists:orders,id',
+                'files' => 'required|file|max:10240', // Max file size 10MB
+            ]);
 
+            $order = Order::findOrFail($request->id);
             $user = auth()->user();
+            $file = $request->file('files');
 
-            $files->assignmentId = $order->id;
-            $files->employee_id = $user->id;
-            $files->employee_name = $user->name;
-            $files->employee_phone = $user->phone;
-            // Get the contents of the file as a base64-encoded string
-            $base64Content = base64_encode(file_get_contents($request->file('files')->path()));
+            if ($file && $file->isValid()) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('Assignments', $fileName, 'public');
 
-            // Trim the base64 string to a maximum length of 10 characters
-            $trimmedBase64 = Str::limit($base64Content, 10, '');
+                $files = new Files();
+                $files->assignmentId = $order->id;
+                $files->employee_id = $user->id;
+                $files->employee_name = $user->name;
+                $files->employee_phone = $user->phone;
+                $files->file_name = $fileName;
+                $files->file_path = $path;
+                $files->save();
 
-            // Set the trimmed base64 string as the files attribute
-            $files->files = $trimmedBase64;
-            // Save the files record
-            $files->save();
+                return redirect()->back()->with('success', 'File uploaded successfully');
+            }
 
-            return redirect()->back()->with('success', 'Files uploaded successfully');
+            return redirect()->back()->with('error', 'Invalid file');
         } catch (\Exception $e) {
-            // Handle the exception, log, or redirect with an error message
-            Alert::error('error!', $e->getMessage())->persistent();
-            return redirect()->back()->with('error', 'Error uploading files: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error uploading file: ' . $e->getMessage());
         }
     }
 
