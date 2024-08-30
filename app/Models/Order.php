@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Files;
 
 class Order extends Model
 {
@@ -55,6 +56,6 @@ class Order extends Model
     }
     public function files()
     {
-        return $this->hasMany(File::class);
+        return $this->hasMany(Files::class);
     }
 }

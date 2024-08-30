@@ -515,39 +515,37 @@
             </div>
         </div>
 
-
         <div id="all-files" class="tab-content">
-                <h3>All Files for Order #{{ $order->id }}</h3>
+            <h3>All Files for Order #{{ $order->id }}</h3>
 
-                @if($files->count() > 0)
-                    <div class="file-part">
-                        @foreach($files as $file)
-                            <div class="file-info">
-                                <div class="file-details">
-                                    <div class="file-name">📄 {{ $file->file_name }}</div>
-                                    <p>{{ $file->file_type }}</p>
-                                </div>
-                                <div class="file-metadata">
-                                    <p>{{ $file->uploaded_by }}</p>
-                                    <p>{{ $file->created_at->format('d M, h:i A') }}</p>
-                                </div>
+            @if($order->files->count() > 0)
+                <div class="file-part">
+                    @foreach($order->files as $file)
+                        <div class="file-info">
+                            <div class="file-details">
+                                <div class="file-name">📄 {{ $file->file_name }}</div>
+                                <p>{{ $file->file_type }}</p>
                             </div>
-                        @endforeach
-                    </div>
-                @else
-                    <p>No files have been uploaded for this order yet.</p>
-                @endif
+                            <div class="file-metadata">
+                                <p>{{ $file->uploaded_by }}</p>
+                                <p>{{ $file->created_at->format('d M, h:i A') }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>No files have been uploaded for this order yet.</p>
+            @endif
 
-                <!-- File upload button and modal -->
-                <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>
-                <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>
+            <!-- File upload button and modal -->
+            <button class="buttone" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Upload Files</button>
+            <p style="background: #d0e3dd; padding: 10px; margin-top: 5px;">Ensure to upload the file and a preview file. Failure to this, the task will be cancelled.</p>
 
-                <!-- File upload modal code remains unchanged -->
-            </div>
-
-
+            <!-- File upload modal code remains unchanged -->
+        </div>
 
 
+        
 
 
                 <!-- Styles for Modals -->
