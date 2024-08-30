@@ -53,4 +53,8 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class, 'OrderId');
     }
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }

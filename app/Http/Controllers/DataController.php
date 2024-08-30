@@ -126,6 +126,13 @@ class DataController extends Controller
         }
     }
 
+    public function showOrder($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $files = $order->files; // Assuming you have a relationship set up
+        return view('orders.show', compact('order', 'files'));
+    }
+
 
     public function place_bid(Request $request)
     {
