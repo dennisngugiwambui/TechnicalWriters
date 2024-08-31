@@ -58,7 +58,7 @@
                     <a href="/bids">
                         <i class="fa fa-file-archive-o"></i>
                         <span>All Bids</span>
-                        <span class="badge">{{$bidCount}}</span>
+{{--                        <span class="badge">{{$bidCount}}</span>--}}
                     </a>
                 </li>
 

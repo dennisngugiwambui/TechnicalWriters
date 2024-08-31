@@ -94,19 +94,19 @@ class DataController extends Controller
 
     public function files(Request $request)
     {
-        try {
-            $request->validate([
-                'id' => 'required|exists:orders,id',
-                'files' => 'required|file|max:10240', // Max file size 10MB
-            ]);
+
+
 
             $order = Order::findOrFail($request->id);
             $user = auth()->user();
-            $file = $request->file('files');
+            $file = $request->file('file');
+
 
             if ($file && $file->isValid()) {
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('Assignments', $fileName, 'public');
+
+                //test
 
                 $files = new Files();
                 $files->assignmentId = $order->id;
@@ -115,15 +115,18 @@ class DataController extends Controller
                 $files->employee_phone = $user->phone;
                 $files->file_name = $fileName;
                 $files->file_path = $path;
+
+
                 $files->save();
 
+
                 return redirect()->back()->with('success', 'File uploaded successfully');
+            }else{
+                dd("file not valid");
             }
 
             return redirect()->back()->with('error', 'Invalid file');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error uploading file: ' . $e->getMessage());
-        }
+
     }
 
     public function showOrder($orderId)
@@ -175,7 +178,7 @@ class DataController extends Controller
 
 
         // Retrieve files associated with the order
-        $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
+        $files = Files::where('assignmentId', $order->id)->pluck('file_name')->toArray();
 
         // Populate bid properties
         $bid->OrderId=$order->id;
@@ -224,7 +227,7 @@ class DataController extends Controller
             $available = new Available();
             $order = Order::findOrFail($request->id);
             $bidder = auth()->user();
-            $files = Files::where('assignmentId', $order->id)->pluck('files')->toArray();
+            $files = Files::where('assignmentId', $order->id)->pluck('file_name')->toArray();
 
             $available->OrderId=$order->id;
             $available->assignmentType = $order->assignmentType;
@@ -235,14 +238,16 @@ class DataController extends Controller
             $available->deadline = $order->deadline;
             $available->cpp = $order->cpp;
             $available->price = $order->price;
-            $available->comments = $order->comment;
+            $available->comments = $order->comments;
             $available->writer_id = 'N/A';
             $available->writer_name = 'N/A';
             $available->writer_phone = 'N/A';
 
+            //return response($available);
+
             if (count($files) > 0) {
                 // If there are files, set them in the bid
-                $available->files = $files;
+                $available->files = json_encode($files);
             } else {
                 // If no files, set a default value (e.g., "No files")
                 $available->files = "No files";

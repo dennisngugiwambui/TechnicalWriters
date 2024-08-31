@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('employee_id');
             $table->string('employee_name');
             $table->string('employee_phone');
-            $table->string('files');
+            $table->string('file_name');
+            $table->string('file_path');
             $table->string('permission')->default('visible');
             $table->timestamps();
         });
