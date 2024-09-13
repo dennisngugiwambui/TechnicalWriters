@@ -207,6 +207,32 @@
     </section>
 
 
+    <script>
+        function updateDeadlines() {
+            const deadlineCells = document.querySelectorAll('.deadline-cell');
+            deadlineCells.forEach(cell => {
+                const deadline = new Date(cell.dataset.deadline);
+                const now = new Date();
+                const timeDiff = deadline - now;
+
+                if (timeDiff > 0) {
+                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                    cell.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    cell.textContent = 'Expired';
+                }
+            });
+        }
+
+        // Update deadlines immediately and then every 10 seconds
+        updateDeadlines();
+        setInterval(updateDeadlines, 10000);
+    </script>
+
 
 
 @endsection
